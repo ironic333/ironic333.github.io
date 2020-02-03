@@ -379,7 +379,6 @@
 <p>cd rabbitmq</p>
 <h2 id="3-1-安装Erlang"><a href="#3-1-安装Erlang" class="headerlink" title="3.1.安装Erlang"></a>3.1.安装Erlang</h2><h3 id="3-1-1-在线安装"><a href="#3-1-1-在线安装" class="headerlink" title="3.1.1.在线安装"></a>3.1.1.在线安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install esl-erlang_17.3-1~centos~6_amd64.rpm</span><br><span class="line"></span><br><span class="line">yum install esl-erlang-compat-R14B-1.el6.noarch.rpm</span><br></pre></td></tr></table></figure>
 
-
 <h3 id="3-1-2-离线安装"><a href="#3-1-2-离线安装" class="headerlink" title="3.1.2.离线安装"></a>3.1.2.离线安装</h3><p>上传课前资料中的安装包</p>
 <p>Erlang：</p>
 <p><img src="/images/rabbitMQ/1533941425250.png" alt="1533941425250"></p>
@@ -398,10 +397,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh rabbitmq-server-3.4.1-1.noarch.rpm</span><br></pre></td></tr></table></figure>
 
 <p><img src="/images/rabbitMQ/clip_image007-1533941272259.png" alt="img"></p>
-<h3 id="3-2-1-设置配置文件"><a href="#3-2-1-设置配置文件" class="headerlink" title="3.2.1.设置配置文件"></a>3.2.1.设置配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;usr&#x2F;share&#x2F;doc&#x2F;rabbitmq-server-3.4.1&#x2F;rabbitmq.config.example &#x2F;etc&#x2F;rabbitmq&#x2F;rabbitmq.config</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-1-设置配置文件"><a href="#3-2-1-设置配置文件" class="headerlink" title="3.2.1.设置配置文件"></a>3.2.1.设置配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/share/doc/rabbitmq-server-3.4.1/rabbitmq.config.example /etc/rabbitmq/rabbitmq.config</span><br></pre></td></tr></table></figure>
 
 <p>开启用户远程访问</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;rabbitmq&#x2F;rabbitmq.config</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/rabbitmq/rabbitmq.config</span><br></pre></td></tr></table></figure>
 
 <p> <img src="/images/rabbitMQ/clip_image008-1533941272259.png" alt="img"></p>
 <p><strong>注意要去掉后面的逗号。</strong></p>
@@ -416,7 +415,7 @@
 
 
 
-<h3 id="3-2-5-防火墙开放15672端口"><a href="#3-2-5-防火墙开放15672端口" class="headerlink" title="3.2.5.防火墙开放15672端口"></a>3.2.5.防火墙开放15672端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;sbin&#x2F;iptables -I INPUT -p tcp --dport 15672 -j ACCEPT</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;iptables save</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-5-防火墙开放15672端口"><a href="#3-2-5-防火墙开放15672端口" class="headerlink" title="3.2.5.防火墙开放15672端口"></a>3.2.5.防火墙开放15672端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/sbin/iptables -I INPUT -p tcp --dport 15672 -j ACCEPT</span><br><span class="line"></span><br><span class="line">/etc/rc.d/init.d/iptables save</span><br></pre></td></tr></table></figure>
 
 
 
