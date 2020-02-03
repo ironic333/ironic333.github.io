@@ -62,7 +62,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> <span class="keyword">extends</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">Integer</span>, <span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRUCache</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(capacity, <span class="number">0.75F</span>, <span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">this</span>.capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getOrDefault(key, -<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.put(key, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;Integer, Integer&gt; eldest)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size() &gt; capacity; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LRUCache 对象会以如下语句构造和调用:</span></span><br><span class="line"><span class="comment"> * LRUCache obj = new LRUCache(capacity);</span></span><br><span class="line"><span class="comment"> * int param_1 = obj.get(key);</span></span><br><span class="line"><span class="comment"> * obj.put(key,value);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-KvJBYBBo" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="407039047" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-viySqLcs" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="407039047" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
       <tags>
         <tag>-算法 -数据结构 -leetcode练习</tag>
@@ -657,7 +657,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <p><img src="/images/day15/1532772521932.png" alt="1532772521932"></p>
 <h3 id="3-5-2-修改数据试一试"><a href="#3-5-2-修改数据试一试" class="headerlink" title="3.5.2.修改数据试一试"></a>3.5.2.修改数据试一试</h3><p>在后台修改商品数据的价格，分别在搜索及商品详情页查看是否统一。</p>
 
-    <div id="aplayer-fjvFdgqC" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1409540467" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-AJyfprfi" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1409540467" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-微服务</tag>
       </tags>
@@ -1157,7 +1157,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <p>发现请求速度得到了极大提升：</p>
 <p><img src="/images/day14/1532758206086.png" alt="1532758206086"></p>
 
-    <div id="aplayer-IrhggcRi" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="74265751" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-AemqhXNe" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="74265751" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 
 
@@ -1535,7 +1535,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <p>控制台：</p>
 <p> <img src="/images/yufa/1526961525185.png" alt="1526961525185"></p>
 
-    <div id="aplayer-piPOSFIZ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="74265751" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-krTbGIQv" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="74265751" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 
 
@@ -1847,7 +1847,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <li>sku信息应该在页面异步加载，而不是放到索引库</li>
 </ul>
 
-    <div id="aplayer-TKKSiKeX" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="84079986" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-ghLndlAy" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="84079986" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 
 
@@ -2276,7 +2276,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 </ul>
 <p><img src="/images/day12/1526719415219.png" alt="1526719415219"></p>
 
-    <div id="aplayer-WYqnelQl" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="83596600" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-EtSJpgGS" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="83596600" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 
 
@@ -3468,7 +3468,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <p>结果：</p>
 <p> <img src="/images/day11/1526572198447.png" alt="1526572198447"></p>
 
-    <div id="aplayer-hMMbFbwB" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="188141" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-naHiUanP" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="188141" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-微服务</tag>
       </tags>
@@ -3839,7 +3839,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <li>parse：将参数字符串变为js对象</li>
 </ul>
 
-    <div id="aplayer-wmxozsrR" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1325896427" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-aFmoJtyy" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1325896427" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-微服务</tag>
       </tags>
@@ -4268,7 +4268,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <p><img src="/images/day09/1528450054541.png" alt="1528450054541"></p>
 <p>基本与预览的效果一致，OK！</p>
 
-    <div id="aplayer-XOCpnjvc" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1374646027" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-nuCjPJGl" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1374646027" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 
 
@@ -4301,7 +4301,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseWords</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        String words[] = s.split(<span class="string">" "</span>);</span><br><span class="line">        StringBuilder res=<span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (String word: words)</span><br><span class="line">            res.append(<span class="keyword">new</span> StringBuffer(word).reverse().toString() + <span class="string">" "</span>);</span><br><span class="line">        <span class="keyword">return</span> res.toString().trim();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-pLYfeyka" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="7763" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-vrlmsQWo" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="7763" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 ]]></content>
       <tags>
@@ -4325,7 +4325,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    Arrays.sort(nums);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i - <span class="number">1</span>] == nums[i])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-kXPVPmZY" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="784257" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-DdHmHgCH" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="784257" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 ]]></content>
       <tags>
@@ -4412,7 +4412,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 
 <p>至此，6 道题目通过一个状态转移方程全部解决。<br>四、最后总结<br>本文给大家讲了如何通过状态转移的方法解决复杂的问题，用一个状态转移方程秒杀了 6 道股票买卖问题，现在想想，其实也不算难对吧？这已经属于动态规划问题中较困难的了。<br>关键就在于列举出所有可能的「状态」，然后想想怎么穷举更新这些「状态」。一般用一个多维 dp 数组储存这些状态，从 base case 开始向后推进，推进到最后的状态，就是我们想要的答案。想想这个过程，你是不是有点理解「动态规划」这个名词的意义了呢？<br>具体到股票买卖问题，我们发现了三个状态，使用了一个三维数组，无非还是穷举 + 更新，不过我们可以说的高大上一点，这叫「三维 DP」，怕不怕？这个大实话一说，立刻显得你高人一等，名利双收有没有。<br>所以，大家不要被各种高大上的名词吓到，再多的困难问题，奇技淫巧，也不过是基本套路的不断升级组合产生的。只要把住算法的底层原理，即可举一反三，逐个击破。<br>作者：labuladong<br>链接：<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/</a><br>来源：力扣（LeetCode）</p>
 
-    <div id="aplayer-DWzasuyC" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1325711347" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-FFZZiCjU" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1325711347" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构 -leetcode练习</tag>
       </tags>
@@ -4632,7 +4632,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chkconfig nginx on</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-NuOuNjjV" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="490595927" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-czQEmfWP" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="490595927" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-微服务</tag>
       </tags>
@@ -4669,7 +4669,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : nums)&#123;</span><br><span class="line">            a ^= num;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-FrpgLcMI" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1325896303" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-etCWdoeY" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1325896303" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构 -leetcode练习</tag>
       </tags>
@@ -4701,7 +4701,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverseString</span><span class="params">(<span class="keyword">char</span>[] s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s == <span class="keyword">null</span> || s.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> left = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> right = s.length;</span><br><span class="line">        <span class="keyword">while</span> (++left &lt; --right) &#123;</span><br><span class="line">            <span class="keyword">char</span> c = s[left];</span><br><span class="line">            s[left] = s[right];</span><br><span class="line">            s[right] = c;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-JfYtkxxy" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="239364" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-ktzZzTSf" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="239364" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构 -leetcode练习</tag>
       </tags>
@@ -5164,7 +5164,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将数据提交到后台</span></span><br><span class="line"><span class="comment">// this.$http.post('/item/brand', this.$qs.stringify(params))</span></span><br><span class="line"><span class="keyword">this</span>.$http(&#123;</span><br><span class="line">    method: <span class="keyword">this</span>.isEdit ? <span class="string">'put'</span> : <span class="string">'post'</span>, <span class="comment">// 动态判断是POST还是PUT</span></span><br><span class="line">    url: <span class="string">'/item/brand'</span>,</span><br><span class="line">    data: <span class="keyword">this</span>.$qs.stringify(<span class="keyword">this</span>.brand)</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 关闭窗口</span></span><br><span class="line">    <span class="keyword">this</span>.$emit(<span class="string">"close"</span>);</span><br><span class="line">    <span class="keyword">this</span>.$message.success(<span class="string">"保存成功！"</span>);</span><br><span class="line">&#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.$message.error(<span class="string">"保存失败！"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-TXwhADcJ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2944308820" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-xnYuHnTm" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2944308820" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
       <tags>
         <tag>-微服务</tag>
@@ -5201,7 +5201,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">longestCommonPrefix</span><span class="params">(String[] strs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(strs.length == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String str = strs[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; strs.length; i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(strs[i].indexOf(str) != <span class="number">0</span>)&#123;</span><br><span class="line">                str=str.substring(<span class="number">0</span>, str.length() - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-ayYAhdzE" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1397317478" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-nTbphcAZ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1397317478" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构 -leetcode练习</tag>
       </tags>
@@ -5809,7 +5809,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <p>页面结果：</p>
 <p><img src="/images/day06/1530555740595.png" alt="1530555740595"></p>
 
-    <div id="aplayer-OSGhGWwR" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1401656653" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-eHbcIDZY" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1401656653" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 ]]></content>
       <tags>
@@ -6537,7 +6537,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <p><strong>注意</strong>：单页应用中，页面的切换并不是页面的跳转。仅仅是地址最后的hash值变化。</p>
 <p>事实上，我们总共就一个HTML：index.html</p>
 
-    <div id="aplayer-NpJMizjx" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1403435714" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-dHCuEnTm" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1403435714" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 
 
@@ -7089,7 +7089,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <li>includes(数组元素)：与find类似，如果匹配到元素，则返回true，代表找到了。</li>
 </ul>
 
-    <div id="aplayer-DbiERTIi" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1297483" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-eukkLWei" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1297483" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-微服务</tag>
       </tags>
@@ -7415,7 +7415,7 @@ else：不成立的结果</code></pre><p>其中的每一个部分都可以是Thy
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">hystrix:</span></span><br><span class="line">  <span class="attr">command:</span></span><br><span class="line">    <span class="attr">default:</span></span><br><span class="line">      <span class="attr">execution:</span></span><br><span class="line">        <span class="attr">isolation:</span></span><br><span class="line">          <span class="attr">thread:</span></span><br><span class="line">            <span class="attr">timeoutInMilliseconds:</span> <span class="number">2000</span> <span class="comment"># 设置hystrix的超时时间为6000ms</span></span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-oPnbMWOs" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="92311" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-mHOxyOYE" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="92311" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 ]]></content>
       <tags>
@@ -7703,7 +7703,7 @@ class Graph {
         }
     }
 }</code></pre>
-    <div id="aplayer-JwLTyOzY" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="92330" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-UrkUSoqu" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="92330" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
       </tags>
@@ -8015,7 +8015,7 @@ class EData {
 
 
 }</code></pre>
-    <div id="aplayer-nxKRjeDO" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="28481103" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-YwEdcNlw" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="28481103" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
       </tags>
@@ -8124,7 +8124,7 @@ class EData {
     }
 }</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>贪婪算法所得到的结果不一定是最优的结果(有时候会是最优解)，但是都是相对近似(接近)最优解的结果，比如上题的算法选出的是K1, K2, K3, K5，符合覆盖了全部的地区，但是我们发现 K2, K3,K4,K5 也可以覆盖全部地区，如果K2 的使用成本低于K1,那么我们上题的 K1, K2, K3, K5 虽然是满足条件，但是并不是最优的.</p>
 
-    <div id="aplayer-PxEfEMVE" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="25714352" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-IHybxjDV" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="25714352" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
       </tags>
@@ -8203,7 +8203,7 @@ class EData {
         return next;
     }
 }</code></pre>
-    <div id="aplayer-OPQLQZsZ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1392089153" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-KacSkFOg" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1392089153" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
       </tags>
@@ -8420,7 +8420,7 @@ class EData {
         numOfEdges++;
     }
 }</code></pre>
-    <div id="aplayer-oQLjppKe" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1403250178" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-rjyAUEWX" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1403250178" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
       </tags>
@@ -8514,7 +8514,7 @@ class EData {
 
     }
 }</code></pre>
-    <div id="aplayer-iYrpcfVA" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="4940920" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-IxZZAmIT" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="4940920" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
       </tags>
@@ -8875,7 +8875,7 @@ public static int fibSearch(int[] a, int key) {
     }
     return -1;
 }</code></pre>
-    <div id="aplayer-OtjhKqcl" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1363303614" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-tTkyIQZx" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1363303614" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
@@ -9184,7 +9184,7 @@ public static void merge(int[] arr, int left, int mid, int right, int[] temp) {
 
     }
 }</code></pre>
-    <div id="aplayer-WXqmxUme" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="25714352" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-UhdVJaPh" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="25714352" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 ]]></content>
       <tags>
@@ -9578,7 +9578,7 @@ class Operation {
     }
 
 }</code></pre>
-    <div id="aplayer-WFsIjsnt" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="451703096" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-HaAsOMsy" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="451703096" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
@@ -9693,7 +9693,7 @@ class Operation {
        }
     }
  ｝</code></pre>
-    <div id="aplayer-WksqSvcV" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="401249910" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-eYDOkdGv" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="401249910" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
@@ -9800,7 +9800,7 @@ class Operation {
         circleSingleLinkedList.countBoy(1, 2, 5);
     }
 }</code></pre>
-    <div id="aplayer-vBwqJvnU" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="26470630" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-kliMDbeG" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="26470630" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
@@ -10045,7 +10045,7 @@ public void addByOrder(HeroNode heroNode) {
     }
 }</code></pre><h2 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h2><p>约瑟夫问题涉及环形链表，请看约瑟夫问题讲解，seeYa!!!!</p>
 
-    <div id="aplayer-QVIcyInv" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="406475394" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-fyYTVySQ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="406475394" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
       <tags>
         <tag>-算法 -数据结构</tag>
@@ -10150,7 +10150,7 @@ public Object importExcel(MultipartFile file) throws Exception {
     String result = srPerspectiveService.importExcel(list, projects);
     return ResponseData.success(&quot;导入成功：&lt;br/&gt;&quot; + result);
 }</code></pre>
-    <div id="aplayer-eGKyHFOm" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="440208476" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-iKxNQokd" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="440208476" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 
 ]]></content>
@@ -10271,7 +10271,7 @@ public String reliable(String name) {
     &lt;!-- &lt;dubbo:monitor address=&quot;127.0.0.1:7070&quot;&gt;&lt;/dubbo:monitor&gt; --&gt;
 
 &lt;/beans&gt;</code></pre>
-    <div id="aplayer-sJdceYiF" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="461347998" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-gysLtlzo" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="461347998" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
       <tags>
         <tag>-大数据 -分布式</tag>
@@ -10374,7 +10374,7 @@ public class ZTreeNode {
      */
     private String fullPath;</code></pre><p>前端js涉及：<br><img src="/images/Ahem/1570775749(1).jpg" alt="示例图"></p>
 
-    <div id="aplayer-ITJsMphz" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="36492681" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-vGWEvGcC" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="36492681" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
   </entry>
   <entry>
@@ -10407,7 +10407,7 @@ public void getCode(HttpServletResponse response,HttpSession session) throws IOE
         &lt;img src=&quot;${ctx}/login/getCode.action&quot; onclick=&quot;this.src=this.src+&apos;?&apos;&quot;&gt;
     &lt;/div&gt;</code></pre><p>自己和上面一张图对比看一下区别吧，略略略</p>
 
-    <div id="aplayer-AKAqyPIl" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="515453363" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-IunAGwiw" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="515453363" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
   </entry>
   <entry>
     <title>二维码生成与解析（java）</title>
@@ -10667,7 +10667,7 @@ public class DeCodeServlet extends HttpServlet {
         out.close();
     }
 }</code></pre>
-    <div id="aplayer-OjMRQYUN" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="528326686" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-Xckoqdby" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="528326686" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
   </entry>
   <entry>
     <title>来做做数据库的题吧（二）</title>
@@ -10889,7 +10889,7 @@ public class ZKCuratorClient {
     }
 
 }</code></pre>
-    <div id="aplayer-cxPzDvMq" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="190473" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-afFJiyUg" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="190473" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
   </entry>
   <entry>
     <title>仿抖音微信小程序日记Num.6</title>
@@ -11026,7 +11026,7 @@ public WangJSONResult userUnLike(String userId, String videoId,String videoCreat
 
 }</code></pre><p>  },</p>
 
-    <div id="aplayer-SkFBHZkq" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="19945735" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-vDBRjGWr" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="19945735" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
   </entry>
   <entry>
@@ -11194,7 +11194,7 @@ public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, O
         throws Exception {
 }</code></pre><p>}</p>
 
-    <div id="aplayer-GvsQCuCE" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1352321625" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-VXLOQaYE" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1352321625" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
   </entry>
   <entry>
@@ -11395,7 +11395,7 @@ me.getAllVideoList(page, 0);</code></pre><p>  },</p>
 <h2 id="搜索插件使用"><a href="#搜索插件使用" class="headerlink" title="搜索插件使用"></a>搜索插件使用</h2><p>插件的链接：<a href="https://github.com/mindawei/wsSearchView" target="_blank" rel="noopener">https://github.com/mindawei/wsSearchView</a><br>跟着提示使用即可<br><img src="/images/Ahem/1568105761(1).jpg" alt="示例图"></p>
 <h2 id="热搜词"><a href="#热搜词" class="headerlink" title="热搜词"></a>热搜词</h2><p>重点是热搜词查询的SQL语句： select content from search_records group by content order by count(content) desc</p>
 
-    <div id="aplayer-kzTHBMds" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="18161816" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-crQCsjXn" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="18161816" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 </cover-view></cover-view>]]></content>
   </entry>
   <entry>
@@ -11712,7 +11712,7 @@ public WangJSONResult upload(String userId,
   })
 },</code></pre><p>心情不好不想写了，拜拜吧</p>
 
-    <div id="aplayer-VqpViXvz" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="417859631" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
+    <div id="aplayer-abYebxaG" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="417859631" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>]]></content>
   </entry>
   <entry>
     <title>仿抖音微信小程序日记Num.2</title>
@@ -11807,7 +11807,7 @@ public WangJSONResult upload(String userId,
     }
   }
 })</code></pre>
-    <div id="aplayer-vSOCwNZH" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1348568908" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-oUOyQldN" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1348568908" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 ]]></content>
   </entry>
@@ -11923,7 +11923,7 @@ if(username.length == 0 || password.length == 0){
 <p>解决办法： 在jdbc连接的url后面加上serverTimezone=GMT即可解决问题，如果需要使用gmt+8时区，需要写成GMT%2B8</p>
 <h2 id="妈的一个弱智坑"><a href="#妈的一个弱智坑" class="headerlink" title="妈的一个弱智坑"></a>妈的一个弱智坑</h2><p>@MapperScan的包导入tk的，别org的，否则会报错，干</p>
 
-    <div id="aplayer-uxBbNyPL" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="516358164" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-JpSgLVsm" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="516358164" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 ]]></content>
   </entry>
 </search>
