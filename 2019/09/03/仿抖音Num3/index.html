@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="上传视频相关接口与知识点本章重点讲解视频上传相关接口和ffmpeg和java结合对视频进行剪辑和替换背景音乐等相关操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿抖音微信小程序日记Num.3">
+<meta property="og:url" content="https://ironic333.github.io/2019/09/03/仿抖音Num3/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="上传视频相关接口与知识点本章重点讲解视频上传相关接口和ffmpeg和java结合对视频进行剪辑和替换背景音乐等相关操作">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/bgm.jpg">
+<meta property="og:updated_time" content="2019-09-03T10:28:26.449Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="仿抖音微信小程序日记Num.3">
+<meta name="twitter:description" content="上传视频相关接口与知识点本章重点讲解视频上传相关接口和ffmpeg和java结合对视频进行剪辑和替换背景音乐等相关操作">
+<meta name="twitter:image" content="https://ironic333.github.io/images/Ahem/bgm.jpg">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2019/09/03/仿抖音Num3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>仿抖音微信小程序日记Num.3 | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2019/09/03/仿抖音Num3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">仿抖音微信小程序日记Num.3
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-03 17:30:04 / 修改时间：18:28:26" itemprop="dateCreated datePublished" datetime="2019-09-03T17:30:04+08:00">2019-09-03</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="上传视频相关接口与知识点"><a href="#上传视频相关接口与知识点" class="headerlink" title="上传视频相关接口与知识点"></a>上传视频相关接口与知识点</h2><p>本章重点讲解视频上传相关接口和ffmpeg和java结合对视频进行剪辑和替换背景音乐等相关操作</p>
+<a id="more"></a>
+<h2 id="视频上传相关接口"><a href="#视频上传相关接口" class="headerlink" title="视频上传相关接口"></a>视频上传相关接口</h2><p>视频的上传和前一章的头像上传差不多是相同的操作,同样是通过fileInputstream和fileoutputstream流来进行相关操作，别忘记用完之后要关闭，文件路径的设置也是需要细心对待的地方，先贴代码吧：<br>    @ApiOperation(value=”视频上传”,notes=”视频上传的接口”)<br>    @ApiImplicitParams({<br>        @ApiImplicitParam(name=”userId”,value=”用户id”,required=true,dataType=”String”,paramType=”form”),<br>        @ApiImplicitParam(name=”bgmId”,value=”背景音乐id”,required=false,dataType=”String”,paramType=”form”),<br>        @ApiImplicitParam(name=”videoSeconds”,value=”视频时间”,required=true,dataType=”String”,paramType=”form”),<br>        @ApiImplicitParam(name=”videoWidth”,value=”视频宽度”,required=true,dataType=”String”,paramType=”form”),<br>        @ApiImplicitParam(name=”videoHeight”,value=”视频高度”,required=true,dataType=”String”,paramType=”form”),<br>        @ApiImplicitParam(name=”desc”,value=”视频描述”,required=false,dataType=”String”,paramType=”form”)</p>
+<pre><code>})
+@PostMapping(value = &quot;/upload&quot;, headers =&quot;content-type=multipart/form-data&quot; )
+public WangJSONResult upload(String userId,
+                             String bgmId,double videoSeconds,int videoWidth,int videoHeight,
+                             String desc, @ApiParam(value=&quot;短视频&quot; ,required=true) MultipartFile file ) throws Exception {
+
+    if (StringUtils.isBlank(userId)) {
+        return WangJSONResult.errorMsg(&quot;用户Id不能为空...&quot;);
+
+    }
+
+    //保存到数据库中的相对路径
+    String uploadPathDB = &quot;/&quot; + userId +&quot;/video&quot;;
+    String coverPathDB = &quot;/&quot; + userId + &quot;/video&quot;;
+
+    FileOutputStream fileOutputStream = null;
+    InputStream inputStream = null;
+    String finalVideoPath = &quot;&quot;;
+    try {
+        if(file != null) {
+
+
+            String fileName = file.getOriginalFilename();
+            // abc.mp4
+            String arrayFilenameItem[] =  fileName.split(&quot;\\.&quot;);
+            String fileNamePrefix = &quot;&quot;;
+            for (int i = 0 ; i &lt; arrayFilenameItem.length-1 ; i ++) {
+                fileNamePrefix += arrayFilenameItem[i];
+            }
+            // fix bug: 解决小程序端OK，PC端不OK的bug，原因：PC端和小程序端对临时视频的命名不同</code></pre><p>//                String fileNamePrefix = fileName.split(“\.”)[0];</p>
+<pre><code>            if (StringUtils.isNotBlank(fileName)) {
+                //文件上传的最终保存路径
+                finalVideoPath = FILE_SPACE + uploadPathDB + &quot;/&quot; +fileName;
+                // 设置数据库保存的路径
+                uploadPathDB += (&quot;/&quot; + fileName);
+                coverPathDB = coverPathDB + &quot;/&quot; + fileNamePrefix + &quot;.jpg&quot;;
+
+                File outFile =new File(finalVideoPath);
+                if(outFile.getParentFile()!=null ||  !outFile.getParentFile().isDirectory()) {
+                    //创建父文件
+                    outFile.getParentFile().mkdirs();
+                }
+
+                fileOutputStream =new FileOutputStream(outFile);
+                inputStream = file.getInputStream();
+                IOUtils.copy(inputStream, fileOutputStream);
+            }
+        }else {
+            return WangJSONResult.errorMsg(&quot;上传出错...&quot;);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return WangJSONResult.errorMsg(&quot;上传出错...&quot;);
+    }finally {
+        if(fileOutputStream != null) {
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        }
+    }
+    //判断bgmId是否为空，如果不为空，就查询bgm信息并合并
+    if(!StringUtils.isBlank(bgmId)) {
+        Bgm bgm = bgmService.queryBgmById(bgmId);
+        if(bgm != null) {
+        String mp3InputPath = FILE_SPACE+bgm.getPath();
+
+        MergeVideoMp3 tool =new MergeVideoMp3(FFMPEG_EXE);
+        String videoInputPath = finalVideoPath;
+
+        String videoOutputName = UUID.randomUUID().toString() + &quot;.mp4&quot;;
+        uploadPathDB = &quot;/&quot; + userId +&quot;/video&quot; + &quot;/&quot; + videoOutputName;
+        finalVideoPath = FILE_SPACE + uploadPathDB;
+        tool.convertor(videoInputPath,mp3InputPath, videoSeconds, finalVideoPath);}
+
+    }
+//    System.out.println(&quot;uploadPathDB=&quot; + uploadPathDB);
+//    System.out.println(&quot;finalVideoPath=&quot; + finalVideoPath);
+
+    // 对视频进行截图
+    FetchVideoCover videoInfo = new FetchVideoCover(FFMPEG_EXE);
+    videoInfo.getCover(finalVideoPath, FILE_SPACE + coverPathDB);
+
+    Videos video = new Videos();
+    video.setAudioId(bgmId);
+    video.setUserId(userId);
+    video.setVideoSeconds((float)videoSeconds);
+    video.setVideoHeight(videoHeight);
+    video.setVideoWidth(videoWidth);
+    video.setVideoDesc(desc);
+    video.setVideoPath(uploadPathDB);
+    video.setCoverPath(coverPathDB);
+    video.setStatus(VideoStatusEnum.SUCCESS.value);
+    video.setCreateTime(new Date());
+
+    String videoId = videoService.saveVideo(video);
+    return WangJSONResult.ok(videoId);
+}</code></pre><h2 id="什么是ffmpeg"><a href="#什么是ffmpeg" class="headerlink" title="什么是ffmpeg?"></a>什么是ffmpeg?</h2><p>FFmpeg是一套可以用来记录、转换数字音频、视频,并能将其转化为流的开源计算机程序。采用LGPL或GPL许可证。它提供了录制、转换以及流化音视频的完整解决方案。它包含了非常先进的音频,视频编解码库libavcodec,为了保证高可移植性和编解码质量,libavcodec里很多code都是从头开发的。<br>FFmpeg在Linux平台下开发，但它同样也可以在其它操作系统环境中编译运行，包括Windows、Mac OS X等。这个项目最早由Fabrice Bellard发起，2004年至2015年间由Michael Niedermayer主要负责维护。许多FFmpeg的开发人员都来自MPlayer项目，而且当前FFmpeg也是放在MPlayer项目组的服务器上。项目的名称来自MPEG视频编码标准，前面的”FF”代表”Fast Forward”。</p>
+<h2 id="java结合ffmpeg将视频和MP3音乐合并"><a href="#java结合ffmpeg将视频和MP3音乐合并" class="headerlink" title="java结合ffmpeg将视频和MP3音乐合并"></a>java结合ffmpeg将视频和MP3音乐合并</h2><p>先贴代码吧:<br>    public void convertor(String videoInputPath, String mp3InputPath,<br>            double seconds, String videoOutputPath) throws Exception {<br>//ffmpeg -i bgm.mp3 -i input.mp4 -t 6 -filter_complex amix=inputs=2 output.mp4</p>
+<pre><code>    List&lt;String&gt; command = new ArrayList&lt;&gt;();
+    command.add(ffmpegEXE);
+    command.add(&quot;-i&quot;);
+    command.add(mp3InputPath);
+
+    command.add(&quot;-i&quot;);
+    command.add(videoInputPath);
+
+    command.add(&quot;-t&quot;);
+    command.add(String.valueOf(seconds));
+
+    command.add(&quot;-filter_complex&quot;);
+
+    command.add(&quot;amix=inputs=2&quot;);
+
+    command.add(videoOutputPath);
+
+    ProcessBuilder builder = new ProcessBuilder(command);
+    Process process = builder.start();
+
+    InputStream errorStream = process.getErrorStream();
+    InputStreamReader inputStreamReader = new InputStreamReader(errorStream);
+    BufferedReader br = new BufferedReader(inputStreamReader);
+
+    String line = &quot;&quot;;
+    while ( (line = br.readLine()) != null ) {
+    }
+
+    if (br != null) {
+        br.close();
+    }
+    if (inputStreamReader != null) {
+        inputStreamReader.close();
+    }
+    if (errorStream != null) {
+        errorStream.close();
+    }
+
+}</code></pre><p>最后记得关掉所有，这里说一个坑，视频中教学用的命令是： ffmpeg -i bgm.mp3 -i input.mp4 output.mp4 来进行合并，但是输出的视频并没有和MP3合并成功，度娘问了一下，应该用这个命令：ffmpeg -i bgm.mp3 -i input.mp4 -t 6 -filter_complex amix=inputs=2 output.mp4，当然你也可以先把原视频消音之后再和MP3结合也能成功，一些基本命令如下：<br>1.分离视频音频流<br>ffmpeg -i input_file -vcodec copy -an output_file_video　　//分离视频流<br>ffmpeg -i input_file -acodec copy -vn output_file_audio　　//分离音频流<br>2.视频解复用<br>ffmpeg –i test.mp4 –vcodec copy –an –f m4v test.264<br>ffmpeg –i test.avi –vcodec copy –an –f m4v test.264<br>3.视频转码<br>ffmpeg –i test.mp4 –vcodec h264 –s 352<em>278 –an –f m4v test.264              //转码为码流原始文件<br>ffmpeg –i test.mp4 –vcodec h264 –bf 0 –g 25 –s 352</em>278 –an –f m4v test.264  //转码为码流原始文件<br>ffmpeg –i test.avi -vcodec mpeg4 –vtag xvid –qsame test_xvid.avi            //转码为封装文件<br>//-bf B帧数目控制，-g 关键帧间隔控制，-s 分辨率控制<br>4.视频封装<br>ffmpeg –i video_file –i audio_file –vcodec copy –acodec copy output_file<br>5.视频剪切<br>ffmpeg –i test.avi –r 1 –f image2 image-%3d.jpeg        //提取图片<br>ffmpeg -ss 0:1:30 -t 0:0:20 -i input.avi -vcodec copy -acodec copy output.avi    //剪切视频<br>//-r 提取图像的频率，-ss 开始时间，-t 持续时间<br>6.视频录制<br>ffmpeg –i rtsp://192.168.3.205:5555/test –vcodec copy out.avi<br>7.YUV序列播放<br>ffplay -f rawvideo -video_size 1920x1080 input.yuv<br>8.YUV序列转AVI<br>ffmpeg –s w*h –pix_fmt yuv420p –i input.yuv –vcodec mpeg4 output.avi<br>9.YUV422序列转yuv420<br>ffmpeg -pix_fmt yuv422p -s 1024x576 -i input.yuv  -pix_fmt yuv420p output.yuv</p>
+<h2 id="剪切视频封面"><a href="#剪切视频封面" class="headerlink" title="剪切视频封面"></a>剪切视频封面</h2><p>和上一个基本一样的，就是命令换了而已：<br>public void getCover(String videoInputPath, String coverOutputPath) throws IOException, InterruptedException {<br>//        ffmpeg.exe -ss 00:00:01 -i spring.mp4 -vframes 1 bb.jpg<br>        List<string> command = new java.util.ArrayList<string>();<br>        command.add(ffmpegEXE);</string></string></p>
+<pre><code>    // 指定截取第1秒
+    command.add(&quot;-ss&quot;);
+    command.add(&quot;00:00:01&quot;);
+
+    command.add(&quot;-y&quot;);
+    command.add(&quot;-i&quot;);
+    command.add(videoInputPath);
+
+    command.add(&quot;-vframes&quot;);
+    command.add(&quot;1&quot;);
+
+    command.add(coverOutputPath);
+
+    for (String c : command) {
+        System.out.print(c + &quot; &quot;);
+    }
+
+    ProcessBuilder builder = new ProcessBuilder(command);
+    Process process = builder.start();
+
+    InputStream errorStream = process.getErrorStream();
+    InputStreamReader inputStreamReader = new InputStreamReader(errorStream);
+    BufferedReader br = new BufferedReader(inputStreamReader);
+
+    String line = &quot;&quot;;
+    while ( (line = br.readLine()) != null ) {
+    }
+
+    if (br != null) {
+        br.close();
+    }
+    if (inputStreamReader != null) {
+        inputStreamReader.close();
+    }
+    if (errorStream != null) {
+        errorStream.close();
+    }
+}</code></pre><h2 id="微信端联调上传视频"><a href="#微信端联调上传视频" class="headerlink" title="微信端联调上传视频"></a>微信端联调上传视频</h2><p>uploadVideo: function () {<br>    // fixme 视频上传复用<br>    // videoUtil.uploadVideo();<br>    // 以下是原来的代码，不删除，便于参照<br>    var me = this;</p>
+<pre><code>wx.chooseVideo({
+  sourceType: [&apos;album&apos;],
+  success: function (res) {
+    console.log(res);
+
+    var duration = res.duration;
+    var tmpHeight = res.height;
+    var tmpWidth = res.width;
+    var tmpVideoUrl = res.tempFilePath;
+    var tmpCoverUrl = res.thumbTempFilePath;
+
+    if (duration &gt; 30) {
+      wx.showToast({
+        title: &apos;视频长度不能超过30秒...&apos;,
+        icon: &quot;none&quot;,
+        duration: 2500
+      })
+    } else if (duration &lt; 1) {
+      wx.showToast({
+        title: &apos;视频长度太短，请上传超过1秒的视频...&apos;,
+        icon: &quot;none&quot;,
+        duration: 2500
+      })
+    } else {
+      // 打开选择bgm的页面
+      wx.navigateTo({
+        url: &apos;../chooseBgm/chooseBgm?duration=&apos; + duration
+        + &quot;&amp;tmpHeight=&quot; + tmpHeight
+        + &quot;&amp;tmpWidth=&quot; + tmpWidth
+        + &quot;&amp;tmpVideoUrl=&quot; + tmpVideoUrl
+        + &quot;&amp;tmpCoverUrl=&quot; + tmpCoverUrl
+        ,
+      })
+    }
+
+  }
+})</code></pre><p>  },</p>
+<p> 选择了视频后，将相关数据带到选择bgm的页面，then：<br>       wx.uploadFile({<br>        url: serverUrl + ‘/video/upload’,<br>        formData: {<br>          userId: userInfo.id,    // fixme 原来的 app.userInfo.id<br>          bgmId: bgmId,<br>          desc: desc,<br>          videoSeconds: duration,<br>          videoHeight: tmpHeight,<br>          videoWidth: tmpWidth<br>        },<br>        filePath: tmpVideoUrl,<br>        name: ‘file’,<br>        header: {<br>          ‘content-type’: ‘application/json’, // 默认值<br>          ‘headerUserId’: userInfo.id,<br>          ‘headerUserToken’: userInfo.userToken<br>        },<br>        success: function (res) {<br>          var data = JSON.parse(res.data);<br>          wx.hideLoading();<br>          if (data.status == 200) {<br>            wx.showToast({<br>              title: ‘上传成功!<del>‘,<br>              icon: “success”<br>            });<br>            // 上传成功后跳回之前的页面<br>            wx.navigateBack({<br>              delta: 1<br>            })<br>          } else if (res.data.status == 502) {<br>            wx.showToast({<br>              title: res.data.msg,<br>              duration: 2000,<br>              icon: “none”<br>            });<br>            wx.redirectTo({<br>              url: ‘../userLogin/login’,<br>            })<br>          } else {<br>            wx.showToast({<br>              title: ‘上传失败!</del>‘,<br>              icon: “success”<br>            });<br>          }</p>
+<pre><code>    }
+  })
+}
+ onLoad: function (params) {
+
+  var me = this;
+  console.log(params);
+  me.setData({
+    videoParams: params
+  });
+
+  wx.showLoading({
+    title: &apos;请等待...&apos;,
+  });
+  var serverUrl = app.serverUrl;
+  var user = app.getGlobalUserInfo();
+  // 调用后端
+  wx.request({
+    url: serverUrl + &apos;/bgm/list&apos;,
+    method: &quot;POST&quot;,
+    header: {
+      &apos;content-type&apos;: &apos;application/json&apos;, // 默认值
+      &apos;headerUserId&apos;: user.id,
+      &apos;headerUserToken&apos;: user.userToken
+    },
+    success: function (res) {
+      console.log(res.data);
+      wx.hideLoading();
+      if (res.data.status == 200) {
+        var bgmList = res.data.data;
+        me.setData({
+          bgmList: bgmList,
+          serverUrl: serverUrl
+        });
+      } else if (res.data.status == 502) {
+        wx.showToast({
+          title: res.data.msg,
+          duration: 2000,
+          icon: &quot;none&quot;,
+          success: function () {
+            wx.redirectTo({
+              url: &apos;../userLogin/login&apos;,
+            })
+          }
+        });
+      }
+    }
+  })
+},</code></pre><p>心情不好不想写了，拜拜吧</p>
+<h2 id="小程序端页面中显示数据库中所有bgm信息"><a href="#小程序端页面中显示数据库中所有bgm信息" class="headerlink" title="小程序端页面中显示数据库中所有bgm信息"></a>小程序端页面中显示数据库中所有bgm信息</h2><p><img src="/images/Ahem/bgm.jpg" alt="示例图"><br> onLoad: function (params) {</p>
+<pre><code>  var me = this;
+  console.log(params);
+  me.setData({
+    videoParams: params
+  });
+
+  wx.showLoading({
+    title: &apos;请等待...&apos;,
+  });
+  var serverUrl = app.serverUrl;
+  var user = app.getGlobalUserInfo();
+  // 调用后端
+  wx.request({
+    url: serverUrl + &apos;/bgm/list&apos;,
+    method: &quot;POST&quot;,
+    header: {
+      &apos;content-type&apos;: &apos;application/json&apos;, // 默认值
+      &apos;headerUserId&apos;: user.id,
+      &apos;headerUserToken&apos;: user.userToken
+    },
+    success: function (res) {
+      console.log(res.data);
+      wx.hideLoading();
+      if (res.data.status == 200) {
+        var bgmList = res.data.data;
+        me.setData({
+          bgmList: bgmList,
+          serverUrl: serverUrl
+        });
+      } else if (res.data.status == 502) {
+        wx.showToast({
+          title: res.data.msg,
+          duration: 2000,
+          icon: &quot;none&quot;,
+          success: function () {
+            wx.redirectTo({
+              url: &apos;../userLogin/login&apos;,
+            })
+          }
+        });
+      }
+    }
+  })
+},</code></pre><p>心情不好不想写了，拜拜吧</p>
+
+    <div id="aplayer-OJGHfdqZ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="417859631" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2019/09/03/仿抖音Num3/" title="仿抖音微信小程序日记Num.3">https://ironic333.github.io/2019/09/03/仿抖音Num3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/08/19/仿抖音Num2/" rel="next" title="仿抖音微信小程序日记Num.2">
+                  <i class="fa fa-chevron-left"></i> 仿抖音微信小程序日记Num.2
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/09/仿抖音Num4/" rel="prev" title="仿抖音微信小程序日记Num.4">
+                  仿抖音微信小程序日记Num.4 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#上传视频相关接口与知识点"><span class="nav-number">1.</span> <span class="nav-text">上传视频相关接口与知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频上传相关接口"><span class="nav-number">2.</span> <span class="nav-text">视频上传相关接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是ffmpeg"><span class="nav-number">3.</span> <span class="nav-text">什么是ffmpeg?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java结合ffmpeg将视频和MP3音乐合并"><span class="nav-number">4.</span> <span class="nav-text">java结合ffmpeg将视频和MP3音乐合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#剪切视频封面"><span class="nav-number">5.</span> <span class="nav-text">剪切视频封面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微信端联调上传视频"><span class="nav-number">6.</span> <span class="nav-text">微信端联调上传视频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序端页面中显示数据库中所有bgm信息"><span class="nav-number">7.</span> <span class="nav-text">小程序端页面中显示数据库中所有bgm信息</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

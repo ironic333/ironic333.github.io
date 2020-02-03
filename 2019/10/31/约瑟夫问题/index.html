@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="约瑟夫问题Josephu 问题为：设编号为1，2，… n的n个人围坐一圈，约定编号为k（1&amp;lt;=k&amp;lt;=n）的人从1开始报数，数到m 的那个人出列，它的下一位又从1开始报数，数到m的那个人又出列，依次类推，直到所有人出列为止，由此产生一个出队编号的序列。n = 5 , 即有5个人k = 1, 从第一个人开始报数m = 2, 数2下出圈的顺序2-&amp;gt;4-&amp;gt;1-&amp;gt;5-&amp;gt;3">
+<meta name="keywords" content="-算法 -数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="约瑟夫问题">
+<meta property="og:url" content="https://ironic333.github.io/2019/10/31/约瑟夫问题/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="约瑟夫问题Josephu 问题为：设编号为1，2，… n的n个人围坐一圈，约定编号为k（1&amp;lt;=k&amp;lt;=n）的人从1开始报数，数到m 的那个人出列，它的下一位又从1开始报数，数到m的那个人又出列，依次类推，直到所有人出列为止，由此产生一个出队编号的序列。n = 5 , 即有5个人k = 1, 从第一个人开始报数m = 2, 数2下出圈的顺序2-&amp;gt;4-&amp;gt;1-&amp;gt;5-&amp;gt;3">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/1572500363(1).jpg">
+<meta property="og:updated_time" content="2019-10-31T08:46:41.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="约瑟夫问题">
+<meta name="twitter:description" content="约瑟夫问题Josephu 问题为：设编号为1，2，… n的n个人围坐一圈，约定编号为k（1&amp;lt;=k&amp;lt;=n）的人从1开始报数，数到m 的那个人出列，它的下一位又从1开始报数，数到m的那个人又出列，依次类推，直到所有人出列为止，由此产生一个出队编号的序列。n = 5 , 即有5个人k = 1, 从第一个人开始报数m = 2, 数2下出圈的顺序2-&amp;gt;4-&amp;gt;1-&amp;gt;5-&amp;gt;3">
+<meta name="twitter:image" content="https://ironic333.github.io/images/Ahem/1572500363(1).jpg">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2019/10/31/约瑟夫问题/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>约瑟夫问题 | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2019/10/31/约瑟夫问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">约瑟夫问题
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-31 11:26:57 / 修改时间：16:46:41" itemprop="dateCreated datePublished" datetime="2019-10-31T11:26:57+08:00">2019-10-31</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="约瑟夫问题"><a href="#约瑟夫问题" class="headerlink" title="约瑟夫问题"></a>约瑟夫问题</h2><p>Josephu 问题为：设编号为1，2，… n的n个人围坐一圈，约定编号为k（1&lt;=k&lt;=n）的人从1开始报数，数到m 的那个人出列，它的下一位又从1开始报数，数到m的那个人又出列，依次类推，直到所有人出列为止，由此产生一个出队编号的序列。<br>n = 5 , 即有5个人<br>k = 1, 从第一个人开始报数<br>m = 2, 数2下<br>出圈的顺序<br>2-&gt;4-&gt;1-&gt;5-&gt;3</p>
+<a id="more"></a>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p><img src="/images/Ahem/1572500363(1).jpg" alt="示例图"></p>
+<p>构建一个单向的环形链表思路<br>1.先创建第一个节点, 让 first 指向该节点，并形成环形<br>2.后面当我们每创建一个新的节点，就把该节点，加入到已有的环形链表中即可.</p>
+<p>遍历环形链表<br>1.先让一个辅助指针(变量) curBoy，指向first节点<br>2.然后通过一个while循环遍历 该环形链表即可 curBoy.next  == first 结束</p>
+<p>需求创建一个辅助指针(变量)helper,事先应该指向环形链表的最后这个节点.<br>补充： 小孩报数前，先让first和helper移动 k - 1次<br>当小孩报数时，让first和helper指针同时的移动m-1次<br>这时就可以将first指向的小孩节点出圈<br>first = first .next<br>helper.next = first<br>原来first 指向的节点就没有任何引用，就会被回收</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>先创建一个类如下：</p>
+<pre><code>class Boy {
+    private int no;
+    private Boy next;
+    public Boy(int no) {
+        this.no = no;
+    }
+    public int getNo() {
+        return this.no;
+    }
+    public void setNo(int no) {
+        this.no = no;
+    }
+    public Boy getNext() {
+        return this.next;
+    }
+    public void setNext(Boy next) {
+        this.next = next;
+    }
+}</code></pre><p>环形链表实现：</p>
+<pre><code>class CircleSingleLinkedList {
+    private Boy first = null;
+    CircleSingleLinkedList() {
+    }</code></pre><p>创建一个环形单向链表</p>
+<pre><code>public void addBoy(int nums) {
+    if (nums &lt; 1) {
+        System.out.println(&quot;nums的值不正确&quot;);
+    } else {
+        Boy curBoy = null;
+        for(int i = 1; i &lt;= nums; ++i) {
+            Boy boy = new Boy(i);
+            if (i == 1) {
+                this.first = boy;
+                this.first.setNext(this.first);
+                curBoy = this.first;
+            } else {
+                curBoy.setNext(boy);
+                boy.setNext(this.first);
+                curBoy = boy;
+            }
+        }
+    }
+}</code></pre><p>显示所有小孩</p>
+<pre><code>public void showBoy() {
+    if (this.first == null) {
+        System.out.println(&quot;没有任何小孩~~&quot;);
+    } else {
+        Boy curBoy = this.first;
+        while(true) {
+            System.out.printf(&quot;小孩的编号 %d \n&quot;, curBoy.getNo());
+            if (curBoy.getNext() == this.first) {
+                return;
+            }
+            curBoy = curBoy.getNext();
+        }
+    }
+}</code></pre><p>根据用户的输入计算出小孩的出圈顺序</p>
+<pre><code>    public void countBoy(int startNo, int countNum, int nums) {
+        if (this.first != null &amp;&amp; startNo &gt;= 1 &amp;&amp; startNo &lt;= nums) {
+            Boy helper;
+            for(helper = this.first; helper.getNext() != this.first; helper = helper.getNext()) {
+            }
+            int j;
+            for(j = 0; j &lt; startNo - 1; ++j) {
+                this.first = this.first.getNext();
+                helper = helper.getNext();
+            }
+            while(helper != this.first) {
+                for(j = 0; j &lt; countNum - 1; ++j) {
+                    this.first = this.first.getNext();
+                    helper = helper.getNext();
+                }
+                System.out.printf(&quot;小孩%d出圈\n&quot;, this.first.getNo());
+                this.first = this.first.getNext();
+                helper.setNext(this.first);
+            }
+            System.out.printf(&quot;最后留在圈中的小孩编号%d \n&quot;, this.first.getNo());
+        } else {
+            System.out.println(&quot;参数输入有误， 请重新输入&quot;);
+        }
+    }
+}</code></pre><p>最后自己来测试一下吧（自己去看最终结果洛）：</p>
+<pre><code>public class Joseph {
+    public Joseph() {
+    }
+    public static void main(String[] args) {
+        CircleSingleLinkedList circleSingleLinkedList = new CircleSingleLinkedList();
+        circleSingleLinkedList.addBoy(5);
+        circleSingleLinkedList.showBoy();
+        circleSingleLinkedList.countBoy(1, 2, 5);
+    }
+}</code></pre>
+    <div id="aplayer-zXNtIKVV" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="26470630" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2019/10/31/约瑟夫问题/" title="约瑟夫问题">https://ironic333.github.io/2019/10/31/约瑟夫问题/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/算法-数据结构/" rel="tag"># -算法 -数据结构</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/31/链表/" rel="next" title="链表">
+                  <i class="fa fa-chevron-left"></i> 链表
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/31/栈/" rel="prev" title="栈">
+                  栈 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#约瑟夫问题"><span class="nav-number">1.</span> <span class="nav-text">约瑟夫问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

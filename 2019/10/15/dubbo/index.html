@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="什么是RPC？RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通信方式，他是一种技术的思想，而不是规范。它允许程序调用另一个地址空间（通常是共享网络的另一台机器上）的过程或函数，而不用程序员显式编码这个远程调用的细节。即程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。">
+<meta name="keywords" content="-大数据 -分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dubbo基础">
+<meta property="og:url" content="https://ironic333.github.io/2019/10/15/dubbo/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="什么是RPC？RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通信方式，他是一种技术的思想，而不是规范。它允许程序调用另一个地址空间（通常是共享网络的另一台机器上）的过程或函数，而不用程序员显式编码这个远程调用的细节。即程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-15T01:24:00.518Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dubbo基础">
+<meta name="twitter:description" content="什么是RPC？RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通信方式，他是一种技术的思想，而不是规范。它允许程序调用另一个地址空间（通常是共享网络的另一台机器上）的过程或函数，而不用程序员显式编码这个远程调用的细节。即程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2019/10/15/dubbo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>dubbo基础 | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2019/10/15/dubbo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">dubbo基础
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-15 09:14:10 / 修改时间：09:24:00" itemprop="dateCreated datePublished" datetime="2019-10-15T09:14:10+08:00">2019-10-15</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="什么是RPC？"><a href="#什么是RPC？" class="headerlink" title="什么是RPC？"></a>什么是RPC？</h2><p>RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通信方式，他是一种技术的思想，而不是规范。它允许程序调用另一个地址空间（通常是共享网络的另一台机器上）的过程或函数，而不用程序员显式编码这个远程调用的细节。即程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。</p>
+<a id="more"></a>
+<h2 id="dubbo"><a href="#dubbo" class="headerlink" title="dubbo"></a>dubbo</h2><p>Apache Dubbo是一款高性能、轻量级的开源JavaRPC框架，它提供了三大核心能力：<br>面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>服务提供者（Provider）：暴露服务的服务提供方，服务提供者在启动时，向注册中心注册自己提供的服务。<br>在serviceImpl中添加dubbo的@service注解暴露服务</p>
+<p>服务消费者（Consumer）: 调用远程服务的服务消费方，服务消费者在启动时，向注册中心订阅自己所需的服务,服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。<br>在消费者需要调用什么方法的地方不用@autowire导入方法而是@reference</p>
+<p>注册中心（Registry）：注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者</p>
+<p>监控中心（Monitor）：服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心</p>
+<h2 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h2><p>zookeeper作为注册中心<br>监控中心宕掉不影响使用，只是丢失部分采样数据<br>数据库宕掉后，注册中心仍能通过缓存提供服务列表查询，但不能注册新服务<br>注册中心对等集群，任意一台宕掉后，将自动切换到另一台<br>注册中心全部宕掉后，服务提供者和服务消费者仍能通过本地缓存通讯（还有dubbo直连）<br>服务提供者无状态，任意一台宕掉后，不影响使用<br>服务提供者全部宕掉后，服务消费者应用将无法使用，并无限次重连等待服务提供者恢复</p>
+<h2 id="整合hystrix"><a href="#整合hystrix" class="headerlink" title="整合hystrix"></a>整合hystrix</h2><p>Hystrix 旨在通过控制那些访问远程系统、服务和第三方库的节点，从而对延迟和故障提供更强大的容错能力。Hystrix具备拥有回退机制和断路器功能的线程和信号隔离，请求缓存和请求打包，以及监控和配置等功能</p>
+<h3 id="spring-boot官方提供了对hystrix的集成，直接在pom-xml里加入依赖："><a href="#spring-boot官方提供了对hystrix的集成，直接在pom-xml里加入依赖：" class="headerlink" title="spring boot官方提供了对hystrix的集成，直接在pom.xml里加入依赖："></a>spring boot官方提供了对hystrix的集成，直接在pom.xml里加入依赖：</h3><pre><code> &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
+    &lt;version&gt;1.4.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;</code></pre><h3 id="配置Provider端"><a href="#配置Provider端" class="headerlink" title="配置Provider端"></a>配置Provider端</h3><p>在Dubbo的Provider上增加@HystrixCommand配置，这样子调用就会经过Hystrix代理。</p>
+<pre><code>@Service(version = &quot;1.0.0&quot;)
+public class HelloServiceImpl implements HelloService {
+    @HystrixCommand(commandProperties = {
+     @HystrixProperty(name = &quot;circuitBreaker.requestVolumeThreshold&quot;, value = &quot;10&quot;),
+     @HystrixProperty(name = &quot;execution.isolation.thread.timeoutInMilliseconds&quot;, value = &quot;2000&quot;) })
+    @Override
+    public String sayHello(String name) {
+        // System.out.println(&quot;async provider received: &quot; + name);
+        // return &quot;annotation: hello, &quot; + name;
+        throw new RuntimeException(&quot;Exception to show hystrix enabled.&quot;);
+    }
+}</code></pre><h3 id="配置Consumer端"><a href="#配置Consumer端" class="headerlink" title="配置Consumer端"></a>配置Consumer端</h3><p>对于Consumer端，则可以增加一层method调用，并在method上配置@HystrixCommand。当调用出错时，会走到fallbackMethod = “reliable”的调用里。</p>
+<pre><code>@Reference(version = &quot;1.0.0&quot;)
+private HelloService demoService;
+@HystrixCommand(fallbackMethod = &quot;reliable&quot;)
+public String doSayHello(String name) {
+    return demoService.sayHello(name);
+}
+public String reliable(String name) {
+    return &quot;hystrix fallback value&quot;;
+}</code></pre><h2 id="什么是服务降级？"><a href="#什么是服务降级？" class="headerlink" title="什么是服务降级？"></a>什么是服务降级？</h2><p>当服务器压力剧增的情况下，根据实际业务情况及流量，对一些服务和页面有策略的不处理或换种简单的方式处理，从而释放服务器资源以保证核心交易正常运作或高效运作。可以通过服务降级功能临时屏蔽某个出错的非关键服务，并定义降级后的返回策略。</p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>1.Random LoadBalance<br>随机，按权重设置随机概率。<br>在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。<br>2.RoundRobin LoadBalance<br>轮循，按公约后的权重设置轮循比率。存在慢的提供者累积请求的问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。<br>3.LeastActive LoadBalance<br>最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。<br>4.ConsistentHash LoadBalance<br>一致性 Hash，相同参数的请求总是发到同一提供者。当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。算法参见：<a href="http://en.wikipedia.org/wiki/" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/</a></p>
+<h2 id="配置文件示例-SSM-boot的可根据SSM的来配"><a href="#配置文件示例-SSM-boot的可根据SSM的来配" class="headerlink" title="配置文件示例(SSM)(boot的可根据SSM的来配)"></a>配置文件示例(SSM)(boot的可根据SSM的来配)</h2><p>服务端：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns:dubbo=&quot;http://code.alibabatech.com/schema/dubbo&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd&quot;&gt;
+    &lt;!-- 1、指定当前服务/应用的名字（同样的服务名字相同，不要和别的服务同名） --&gt;
+    &lt;dubbo:application name=&quot;user-service-provider&quot;&gt;&lt;/dubbo:application&gt;
+
+    &lt;!-- 2、指定注册中心的位置 --&gt;
+    &lt;!-- &lt;dubbo:registry address=&quot;zookeeper://127.0.0.1:2181&quot;&gt;&lt;/dubbo:registry&gt; --&gt;
+    &lt;dubbo:registry protocol=&quot;zookeeper&quot; address=&quot;127.0.0.1:2181&quot;&gt;&lt;/dubbo:registry&gt;
+
+    &lt;!-- 3、指定通信规则（通信协议？通信端口） --&gt;
+    &lt;dubbo:protocol name=&quot;dubbo&quot; port=&quot;20882&quot;&gt;&lt;/dubbo:protocol&gt;
+
+    &lt;!-- 4、暴露服务   ref：指向服务的真正的实现对象 --&gt;
+    &lt;dubbo:service interface=&quot;com.atguigu.gmall.service.UserService&quot; 
+        ref=&quot;userServiceImpl01&quot; timeout=&quot;1000&quot; version=&quot;1.0.0&quot;&gt;
+        &lt;dubbo:method name=&quot;getUserAddressList&quot; timeout=&quot;1000&quot;&gt;&lt;/dubbo:method&gt;
+    &lt;/dubbo:service&gt;
+
+    &lt;!--统一设置服务提供方的规则  --&gt;
+    &lt;dubbo:provider timeout=&quot;1000&quot;&gt;&lt;/dubbo:provider&gt;
+
+
+    &lt;!-- 服务的实现 --&gt;
+    &lt;bean id=&quot;userServiceImpl01&quot; class=&quot;com.atguigu.gmall.service.impl.UserServiceImpl&quot;&gt;&lt;/bean&gt;
+
+
+    &lt;dubbo:service interface=&quot;com.atguigu.gmall.service.UserService&quot; 
+        ref=&quot;userServiceImpl02&quot; timeout=&quot;1000&quot; version=&quot;2.0.0&quot;&gt;
+        &lt;dubbo:method name=&quot;getUserAddressList&quot; timeout=&quot;1000&quot;&gt;&lt;/dubbo:method&gt;
+    &lt;/dubbo:service&gt;
+    &lt;bean id=&quot;userServiceImpl02&quot; class=&quot;com.atguigu.gmall.service.impl.UserServiceImpl2&quot;&gt;&lt;/bean&gt;
+
+    &lt;!-- 连接监控中心 --&gt;
+    &lt;dubbo:monitor protocol=&quot;registry&quot;&gt;&lt;/dubbo:monitor&gt;
+
+&lt;/beans&gt;</code></pre><p>消费端：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns:dubbo=&quot;http://dubbo.apache.org/schema/dubbo&quot;
+    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd&quot;&gt;
+    &lt;context:component-scan base-package=&quot;com.atguigu.gmall.service.impl&quot;&gt;&lt;/context:component-scan&gt;
+    &lt;dubbo:application name=&quot;order-service-consumer&quot;&gt;&lt;/dubbo:application&gt;
+
+    &lt;dubbo:registry address=&quot;zookeeper://127.0.0.1:2181&quot;&gt;&lt;/dubbo:registry&gt;
+
+    &lt;!--  配置本地存根--&gt;
+
+    &lt;!--声明需要调用的远程服务的接口；生成远程服务代理  --&gt;
+    &lt;!-- 
+        1）、精确优先 (方法级优先，接口级次之，全局配置再次之)
+        2）、消费者设置优先(如果级别一样，则消费方优先，提供方次之)
+    --&gt;
+    &lt;!-- timeout=&quot;0&quot; 默认是1000ms--&gt;
+    &lt;!-- retries=&quot;&quot;:重试次数，不包含第一次调用，0代表不重试--&gt;
+    &lt;!-- 幂等（设置重试次数）【查询、删除、修改】、非幂等（不能设置重试次数）【新增】 --&gt;
+    &lt;dubbo:reference interface=&quot;com.atguigu.gmall.service.UserService&quot; 
+        id=&quot;userService&quot; timeout=&quot;5000&quot; retries=&quot;3&quot; version=&quot;*&quot;&gt;
+        &lt;!-- &lt;dubbo:method name=&quot;getUserAddressList&quot; timeout=&quot;1000&quot;&gt;&lt;/dubbo:method&gt; --&gt;
+    &lt;/dubbo:reference&gt;
+
+    &lt;!-- 配置当前消费者的统一规则：所有的服务都不检查 --&gt;
+    &lt;dubbo:consumer check=&quot;false&quot; timeout=&quot;5000&quot;&gt;&lt;/dubbo:consumer&gt;
+    &lt;dubbo:monitor protocol=&quot;registry&quot;&gt;&lt;/dubbo:monitor&gt;
+    &lt;!-- &lt;dubbo:monitor address=&quot;127.0.0.1:7070&quot;&gt;&lt;/dubbo:monitor&gt; --&gt;
+
+&lt;/beans&gt;</code></pre>
+    <div id="aplayer-GigivvUv" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="461347998" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2019/10/15/dubbo/" title="dubbo基础">https://ironic333.github.io/2019/10/15/dubbo/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/大数据-分布式/" rel="tag"># -大数据 -分布式</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/11/树/" rel="next" title="该死的树（java）">
+                  <i class="fa fa-chevron-left"></i> 该死的树（java）
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/15/easypoi导入导出/" rel="prev" title="easypoi导入导出">
+                  easypoi导入导出 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是RPC？"><span class="nav-number">1.</span> <span class="nav-text">什么是RPC？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dubbo"><span class="nav-number">2.</span> <span class="nav-text">dubbo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">3.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zookeeper"><span class="nav-number">4.</span> <span class="nav-text">zookeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整合hystrix"><span class="nav-number">5.</span> <span class="nav-text">整合hystrix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spring-boot官方提供了对hystrix的集成，直接在pom-xml里加入依赖："><span class="nav-number">5.1.</span> <span class="nav-text">spring boot官方提供了对hystrix的集成，直接在pom.xml里加入依赖：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Provider端"><span class="nav-number">5.2.</span> <span class="nav-text">配置Provider端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Consumer端"><span class="nav-number">5.3.</span> <span class="nav-text">配置Consumer端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是服务降级？"><span class="nav-number">6.</span> <span class="nav-text">什么是服务降级？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负载均衡"><span class="nav-number">7.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件示例-SSM-boot的可根据SSM的来配"><span class="nav-number">8.</span> <span class="nav-text">配置文件示例(SSM)(boot的可根据SSM的来配)</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

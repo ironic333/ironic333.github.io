@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="栈的应用学习了栈之后，接下来看看中缀表达式和后缀表达式实现计算器的方法以及有什么不同吧">
+<meta name="keywords" content="-算法 -数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中缀和后缀实现计算器">
+<meta property="og:url" content="https://ironic333.github.io/2019/10/31/中缀后缀/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="栈的应用学习了栈之后，接下来看看中缀表达式和后缀表达式实现计算器的方法以及有什么不同吧">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-31T08:46:41.807Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="中缀和后缀实现计算器">
+<meta name="twitter:description" content="栈的应用学习了栈之后，接下来看看中缀表达式和后缀表达式实现计算器的方法以及有什么不同吧">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2019/10/31/中缀后缀/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>中缀和后缀实现计算器 | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2019/10/31/中缀后缀/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">中缀和后缀实现计算器
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-31 16:36:08 / 修改时间：16:46:41" itemprop="dateCreated datePublished" datetime="2019-10-31T16:36:08+08:00">2019-10-31</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h2><p>学习了栈之后，接下来看看中缀表达式和后缀表达式实现计算器的方法以及有什么不同吧</p>
+<a id="more"></a>
+<h2 id="栈实现综合计算器（中缀表达式）"><a href="#栈实现综合计算器（中缀表达式）" class="headerlink" title="栈实现综合计算器（中缀表达式）"></a>栈实现综合计算器（中缀表达式）</h2><p>思路：<br>1.通过一个index值（索引），来遍历我们的表达式<br>2.如果我们发现是一个数字,就直接入数栈<br>3.如果发现扫描到是一个符号,就分如下情况<br>3.1如果发现当前的符号栈为空，就直接入栈<br>3.2如果符号栈有操作符，就进行比较,如果当前的操作符的优先级小于或者等于栈中的操作符， 就需要从数栈中pop出两个数,在从符号栈中pop出一个符号，进行运算，将得到结果，入数栈，然后将当前的操作符入符号栈， 如果当前的操作符的优先级大于栈中的操作符，就直接入符号栈.</p>
+<ol start="4">
+<li><p>当表达式扫描完毕，就顺序的从 数栈和符号栈中pop出相应的数和符号，并运行.</p>
+</li>
+<li><p>最后在数栈只有一个数字，就是表达式的结果</p>
+<p> public class Calculator {</p>
+<pre><code>public static void main(String[] args) {
+    //根据前面思路，完成表达式的运算
+    String expression = &quot;7*2*2-5+1-5+3-4&quot;; // 15//如何处理多位数的问题？
+    //创建两个栈，数栈，一个符号栈
+    ArrayStack2 numStack = new ArrayStack2(10);
+    ArrayStack2 operStack = new ArrayStack2(10);
+    //定义需要的相关变量
+    int index = 0;//用于扫描
+    int num1 = 0; 
+    int num2 = 0;
+    int oper = 0;
+    int res = 0;
+    char ch = &apos; &apos;; //将每次扫描得到char保存到ch
+    String keepNum = &quot;&quot;; //用于拼接 多位数
+    //开始while循环的扫描expression
+    while(true) {
+        //依次得到expression 的每一个字符
+        ch = expression.substring(index, index+1).charAt(0);
+        //判断ch是什么，然后做相应的处理
+        if(operStack.isOper(ch)) {//如果是运算符
+            //判断当前的符号栈是否为空
+            if(!operStack.isEmpty()) {
+                //如果符号栈有操作符，就进行比较,如果当前的操作符的优先级小于或者等于栈中的操作符,就需要从数栈中pop出两个数,
+                //在从符号栈中pop出一个符号，进行运算，将得到结果，入数栈，然后将当前的操作符入符号栈
+                if(operStack.priority(ch) &lt;= operStack.priority(operStack.peek())) {
+                    num1 = numStack.pop();
+                    num2 = numStack.pop();
+                    oper = operStack.pop();
+                    res = numStack.cal(num1, num2, oper);
+                    //把运算的结果如数栈
+                    numStack.push(res);
+                    //然后将当前的操作符入符号栈
+                    operStack.push(ch);
+                } else {
+                    //如果当前的操作符的优先级大于栈中的操作符， 就直接入符号栈.
+                    operStack.push(ch);
+                }
+            }else {
+                //如果为空直接入符号栈..
+                operStack.push(ch); // 1 + 3
+            }
+        } else { //如果是数，则直接入数栈
+
+            //numStack.push(ch - 48); //? &quot;1+3&quot; &apos;1&apos; =&gt; 1
+            //分析思路
+            //1. 当处理多位数时，不能发现是一个数就立即入栈，因为他可能是多位数
+            //2. 在处理数，需要向expression的表达式的index 后再看一位,如果是数就进行扫描，如果是符号才入栈
+            //3. 因此我们需要定义一个变量 字符串，用于拼接
+
+            //处理多位数
+            keepNum += ch;
+
+            //如果ch已经是expression的最后一位，就直接入栈
+            if (index == expression.length() - 1) {
+                numStack.push(Integer.parseInt(keepNum));
+            }else{
+
+                //判断下一个字符是不是数字，如果是数字，就继续扫描，如果是运算符，则入栈
+                //注意是看后一位，不是index++
+                if (operStack.isOper(expression.substring(index+1,index+2).charAt(0))) {
+                    //如果后一位是运算符，则入栈 keepNum = &quot;1&quot; 或者 &quot;123&quot;
+                    numStack.push(Integer.parseInt(keepNum));
+                    //重要的!!!!!!, keepNum清空
+                    keepNum = &quot;&quot;;
+
+                }
+            }
+        }
+        //让index + 1, 并判断是否扫描到expression最后.
+        index++;
+        if (index &gt;= expression.length()) {
+            break;
+        }
+    }
+
+    //当表达式扫描完毕，就顺序的从 数栈和符号栈中pop出相应的数和符号，并运行.
+    while(true) {
+        //如果符号栈为空，则计算到最后的结果, 数栈中只有一个数字【结果】
+        if(operStack.isEmpty()) {
+            break;
+        }
+        num1 = numStack.pop();
+        num2 = numStack.pop();
+        oper = operStack.pop();
+        res = numStack.cal(num1, num2, oper);
+        numStack.push(res);//入栈
+    }
+    //将数栈的最后数，pop出，就是结果
+    int res2 = numStack.pop();
+    System.out.printf(&quot;表达式 %s = %d&quot;, expression, res2);
+}</code></pre><p> }<br> //先创建一个栈,直接使用前面创建好<br> //定义一个 ArrayStack2 表示栈, 需要扩展功能<br> class ArrayStack2 {</p>
+<pre><code>private int maxSize; // 栈的大小
+private int[] stack; // 数组，数组模拟栈，数据就放在该数组
+private int top = -1;// top表示栈顶，初始化为-1
+
+//构造器
+public ArrayStack2(int maxSize) {
+    this.maxSize = maxSize;
+    stack = new int[this.maxSize];
+}
+
+//增加一个方法，可以返回当前栈顶的值, 但是不是真正的pop
+public int peek() {
+    return stack[top];
+}
+
+//栈满
+public boolean isFull() {
+    return top == maxSize - 1;
+}
+//栈空
+public boolean isEmpty() {
+    return top == -1;
+}
+//入栈-push
+public void push(int value) {
+    //先判断栈是否满
+    if(isFull()) {
+        System.out.println(&quot;栈满&quot;);
+        return;
+    }
+    top++;
+    stack[top] = value;
+}
+//出栈-pop, 将栈顶的数据返回
+public int pop() {
+    //先判断栈是否空
+    if(isEmpty()) {
+        //抛出异常
+        throw new RuntimeException(&quot;栈空，没有数据~&quot;);
+    }
+    int value = stack[top];
+    top--;
+    return value;
+}
+//显示栈的情况[遍历栈]， 遍历时，需要从栈顶开始显示数据
+public void list() {
+    if(isEmpty()) {
+        System.out.println(&quot;栈空，没有数据~~&quot;);
+        return;
+    }
+    //需要从栈顶开始显示数据
+    for(int i = top; i &gt;= 0 ; i--) {
+        System.out.printf(&quot;stack[%d]=%d\n&quot;, i, stack[i]);
+    }
+}
+//返回运算符的优先级，优先级是程序员来确定, 优先级使用数字表示
+//数字越大，则优先级就越高.
+public int priority(int oper) {
+    if(oper == &apos;*&apos; || oper == &apos;/&apos;){
+        return 1;
+    } else if (oper == &apos;+&apos; || oper == &apos;-&apos;) {
+        return 0;
+    } else {
+        return -1; // 假定目前的表达式只有 +, - , * , /
+    }
+}
+//判断是不是一个运算符
+public boolean isOper(char val) {
+    return val == &apos;+&apos; || val == &apos;-&apos; || val == &apos;*&apos; || val == &apos;/&apos;;
+}
+//计算方法
+public int cal(int num1, int num2, int oper) {
+    int res = 0; // res 用于存放计算的结果
+    switch (oper) {
+    case &apos;+&apos;:
+        res = num1 + num2;
+        break;
+    case &apos;-&apos;:
+        res = num2 - num1;// 注意顺序
+        break;
+    case &apos;*&apos;:
+        res = num1 * num2;
+        break;
+    case &apos;/&apos;:
+        res = num2 / num1;
+        break;
+    default:
+        break;
+    }
+    return res;
+}</code></pre><p> }</p>
+</li>
+</ol>
+<h2 id="栈实现综合计算器（中缀转后缀）"><a href="#栈实现综合计算器（中缀转后缀）" class="headerlink" title="栈实现综合计算器（中缀转后缀）"></a>栈实现综合计算器（中缀转后缀）</h2><p>后缀表达式也称为逆波兰表达式<br>1) 初始化两个栈：运算符栈s1和储存中间结果的栈s2；<br>2) 从左至右扫描中缀表达式；<br>3) 遇到操作数时，将其压s2；<br>4) 遇到运算符时，比较其与s1栈顶运算符的优先级：<br>1.如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；<br>2.否则，若优先级比栈顶运算符的高，也将运算符压入s1；<br>3.否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较；<br>5) 遇到括号时：(1) 如果是左括号“(”，则直接压入s1(2) 如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃<br>6) 重复步骤2至5，直到表达式的最右边<br>7) 将s1中剩余的运算符依次弹出并压入s2<br>8)  依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达</p>
+<pre><code>public class PolandNotation {
+    public static void main(String[] args) {
+        //完成将一个中缀表达式转成后缀表达式的功能
+        //说明
+        //1. 1+((2+3)×4)-5 =&gt; 转成  1 2 3 + 4 × + 5 –
+        //2. 因为直接对str 进行操作，不方便，因此 先将  &quot;1+((2+3)×4)-5&quot; =》 中缀的表达式对应的List
+        //   即 &quot;1+((2+3)×4)-5&quot; =&gt; ArrayList [1,+,(,(,2,+,3,),*,4,),-,5]
+        //3. 将得到的中缀表达式对应的List =&gt; 后缀表达式对应的List
+        //   即 ArrayList [1,+,(,(,2,+,3,),*,4,),-,5]  =》 ArrayList [1,2,3,+,4,*,+,5,–]
+
+        String expression = &quot;1+((2+3)*4)-5&quot;;//注意表达式 
+        List&lt;String&gt; infixExpressionList = toInfixExpressionList(expression);
+        System.out.println(&quot;中缀表达式对应的List=&quot; + infixExpressionList); // ArrayList [1,+,(,(,2,+,3,),*,4,),-,5]
+        List&lt;String&gt; suffixExpreesionList = parseSuffixExpreesionList(infixExpressionList);
+        System.out.println(&quot;后缀表达式对应的List&quot; + suffixExpreesionList); //ArrayList [1,2,3,+,4,*,+,5,–] 
+
+        System.out.printf(&quot;expression=%d&quot;, calculate(suffixExpreesionList)); // ?
+        /*
+
+        //先定义给逆波兰表达式
+        //(30+4)×5-6  =&gt; 30 4 + 5 × 6 - =&gt; 164
+        // 4 * 5 - 8 + 60 + 8 / 2 =&gt; 4 5 * 8 - 60 + 8 2 / + 
+        //测试 
+        //说明为了方便，逆波兰表达式 的数字和符号使用空格隔开
+        //String suffixExpression = &quot;30 4 + 5 * 6 -&quot;;
+        String suffixExpression = &quot;4 5 * 8 - 60 + 8 2 / +&quot;; // 76
+        //思路
+        //1. 先将 &quot;3 4 + 5 × 6 - &quot; =&gt; 放到ArrayList中
+        //2. 将 ArrayList 传递给一个方法，遍历 ArrayList 配合栈 完成计算
+
+        List&lt;String&gt; list = getListString(suffixExpression);
+        System.out.println(&quot;rpnList=&quot; + list);
+        int res = calculate(list);
+        System.out.println(&quot;计算的结果是=&quot; + res);
+
+        */
+    }
+    //即 ArrayList [1,+,(,(,2,+,3,),*,4,),-,5]  =》 ArrayList [1,2,3,+,4,*,+,5,–]
+    //方法：将得到的中缀表达式对应的List =&gt; 后缀表达式对应的List
+    public static List&lt;String&gt; parseSuffixExpreesionList(List&lt;String&gt; ls) {
+        //定义两个栈
+        Stack&lt;String&gt; s1 = new Stack&lt;String&gt;(); // 符号栈
+        //说明：因为s2 这个栈，在整个转换过程中，没有pop操作，而且后面我们还需要逆序输出
+        //因此比较麻烦，这里我们就不用 Stack&lt;String&gt; 直接使用 List&lt;String&gt; s2
+        //Stack&lt;String&gt; s2 = new Stack&lt;String&gt;(); // 储存中间结果的栈s2
+        List&lt;String&gt; s2 = new ArrayList&lt;String&gt;(); // 储存中间结果的Lists2
+
+        //遍历ls
+        for(String item: ls) {
+            //如果是一个数，加入s2
+            if(item.matches(&quot;\\d+&quot;)) {
+                s2.add(item);
+            } else if (item.equals(&quot;(&quot;)) {
+                s1.push(item);
+            } else if (item.equals(&quot;)&quot;)) {
+                //如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃
+                while(!s1.peek().equals(&quot;(&quot;)) {
+                    s2.add(s1.pop());
+                }
+                s1.pop();//!!! 将 ( 弹出 s1栈， 消除小括号
+            } else {
+                //当item的优先级小于等于s1栈顶运算符, 将s1栈顶的运算符弹出并加入到s2中，再次转到(4.1)与s1中新的栈顶运算符相比较
+                //问题：我们缺少一个比较优先级高低的方法
+                while(s1.size() != 0 &amp;&amp; Operation.getValue(s1.peek()) &gt;= Operation.getValue(item) ) {
+                    s2.add(s1.pop());
+                }
+                //还需要将item压入栈
+                s1.push(item);
+            }
+        }
+
+        //将s1中剩余的运算符依次弹出并加入s2
+        while(s1.size() != 0) {
+            s2.add(s1.pop());
+        }
+        return s2; //注意因为是存放到List, 因此按顺序输出就是对应的后缀表达式对应的List
+
+    }
+
+    //方法：将 中缀表达式转成对应的List
+    //  s=&quot;1+((2+3)×4)-5&quot;;
+    public static List&lt;String&gt; toInfixExpressionList(String s) {
+        //定义一个List,存放中缀表达式 对应的内容
+        List&lt;String&gt; ls = new ArrayList&lt;String&gt;();
+        int i = 0; //这时是一个指针，用于遍历 中缀表达式字符串
+        String str; // 对多位数的拼接
+        char c; // 每遍历到一个字符，就放入到c
+        do {
+            //如果c是一个非数字，我需要加入到ls
+            if((c=s.charAt(i)) &lt; 48 ||  (c=s.charAt(i)) &gt; 57) {
+                ls.add(&quot;&quot; + c);
+                i++; //i需要后移
+            } else { //如果是一个数，需要考虑多位数
+                str = &quot;&quot;; //先将str 置成&quot;&quot; &apos;0&apos;[48]-&gt;&apos;9&apos;[57]
+                while(i &lt; s.length() &amp;&amp; (c=s.charAt(i)) &gt;= 48 &amp;&amp; (c=s.charAt(i)) &lt;= 57) {
+                    str += c;//拼接
+                    i++;
+                }
+                ls.add(str);
+            }
+        }while(i &lt; s.length());
+        return ls;//返回
+    }
+
+    //将一个逆波兰表达式， 依次将数据和运算符 放入到 ArrayList中
+    public static List&lt;String&gt; getListString(String suffixExpression) {
+        //将 suffixExpression 分割
+        String[] split = suffixExpression.split(&quot; &quot;);
+        List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+        for(String ele: split) {
+            list.add(ele);
+        }
+        return list;
+
+    }
+
+    //完成对逆波兰表达式的运算
+    /*
+     * 1)从左至右扫描，将3和4压入堆栈；
+        2)遇到+运算符，因此弹出4和3（4为栈顶元素，3为次顶元素），计算出3+4的值，得7，再将7入栈；
+        3)将5入栈；
+        4)接下来是×运算符，因此弹出5和7，计算出7×5=35，将35入栈；
+        5)将6入栈；
+        6)最后是-运算符，计算出35-6的值，即29，由此得出最终结果
+     */
+
+    public static int calculate(List&lt;String&gt; ls) {
+        // 创建给栈, 只需要一个栈即可
+        Stack&lt;String&gt; stack = new Stack&lt;String&gt;();
+        // 遍历 ls
+        for (String item : ls) {
+            // 这里使用正则表达式来取出数
+            if (item.matches(&quot;\\d+&quot;)) { // 匹配的是多位数
+                // 入栈
+                stack.push(item);
+            } else {
+                // pop出两个数，并运算， 再入栈
+                int num2 = Integer.parseInt(stack.pop());
+                int num1 = Integer.parseInt(stack.pop());
+                int res = 0;
+                if (item.equals(&quot;+&quot;)) {
+                    res = num1 + num2;
+                } else if (item.equals(&quot;-&quot;)) {
+                    res = num1 - num2;
+                } else if (item.equals(&quot;*&quot;)) {
+                    res = num1 * num2;
+                } else if (item.equals(&quot;/&quot;)) {
+                    res = num1 / num2;
+                } else {
+                    throw new RuntimeException(&quot;运算符有误&quot;);
+                }
+                //把res 入栈
+                stack.push(&quot;&quot; + res);
+            }
+
+        }
+        //最后留在stack中的数据是运算结果
+        return Integer.parseInt(stack.pop());
+    }
+}
+//编写一个类 Operation 可以返回一个运算符 对应的优先级
+class Operation {
+    private static int ADD = 1;
+    private static int SUB = 1;
+    private static int MUL = 2;
+    private static int DIV = 2;
+
+    //写一个方法，返回对应的优先级数字
+    public static int getValue(String operation) {
+        int result = 0;
+        switch (operation) {
+        case &quot;+&quot;:
+            result = ADD;
+            break;
+        case &quot;-&quot;:
+            result = SUB;
+            break;
+        case &quot;*&quot;:
+            result = MUL;
+            break;
+        case &quot;/&quot;:
+            result = DIV;
+            break;
+        default:
+            System.out.println(&quot;不存在该运算符&quot; + operation);
+            break;
+        }
+        return result;
+    }
+
+}</code></pre>
+    <div id="aplayer-eTUsdpGs" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="451703096" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2019/10/31/中缀后缀/" title="中缀和后缀实现计算器">https://ironic333.github.io/2019/10/31/中缀后缀/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/算法-数据结构/" rel="tag"># -算法 -数据结构</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/31/栈/" rel="next" title="栈">
+                  <i class="fa fa-chevron-left"></i> 栈
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/11/05/sort/" rel="prev" title="各种各样的sort（上）">
+                  各种各样的sort（上） <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的应用"><span class="nav-number">1.</span> <span class="nav-text">栈的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈实现综合计算器（中缀表达式）"><span class="nav-number">2.</span> <span class="nav-text">栈实现综合计算器（中缀表达式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈实现综合计算器（中缀转后缀）"><span class="nav-number">3.</span> <span class="nav-text">栈实现综合计算器（中缀转后缀）</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="数据库的一些小题目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="来做做数据库的题吧（一）">
+<meta property="og:url" content="https://ironic333.github.io/2019/09/25/shujuku1/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="数据库的一些小题目">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/1569395126(1).jpg">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/1569390424(1).jpg">
+<meta property="og:updated_time" content="2019-10-11T05:53:59.023Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="来做做数据库的题吧（一）">
+<meta name="twitter:description" content="数据库的一些小题目">
+<meta name="twitter:image" content="https://ironic333.github.io/images/Ahem/1569395126(1).jpg">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2019/09/25/shujuku1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>来做做数据库的题吧（一） | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2019/09/25/shujuku1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">来做做数据库的题吧（一）
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-25 13:07:19" itemprop="dateCreated datePublished" datetime="2019-09-25T13:07:19+08:00">2019-09-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-11 13:53:59" itemprop="dateModified" datetime="2019-10-11T13:53:59+08:00">2019-10-11</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数据库的一些小题目"><a href="#数据库的一些小题目" class="headerlink" title="数据库的一些小题目"></a>数据库的一些小题目</h2><a id="more"></a>
+<h2 id="先看看表结构吧"><a href="#先看看表结构吧" class="headerlink" title="先看看表结构吧"></a>先看看表结构吧</h2><p><img src="/images/Ahem/1569395126(1).jpg" alt="示例图"></p>
+<h2 id="查询课程1的成绩比课程2的成绩高的所有学生的学号"><a href="#查询课程1的成绩比课程2的成绩高的所有学生的学号" class="headerlink" title="查询课程1的成绩比课程2的成绩高的所有学生的学号"></a>查询课程1的成绩比课程2的成绩高的所有学生的学号</h2><p>SELECT * FROM tblScore ts1, tblScore ts2<br>WHERE ts1.stuid = ts2.stuid AND ts1.courseid = ‘1’ AND ts2.courseid = ‘2’ AND ts1.score &gt; ts2.score</p>
+<h2 id="查询平均成绩大于60分的同学的学号和平均成绩"><a href="#查询平均成绩大于60分的同学的学号和平均成绩" class="headerlink" title="查询平均成绩大于60分的同学的学号和平均成绩"></a>查询平均成绩大于60分的同学的学号和平均成绩</h2><p>SELECT stu.stuid, AVG(score.score)FROM tblstudent stu, tblscore score<br>WHERE stu.stuid = score.stuid GROUP BY stu.stuid<br>HAVING AVG(score.score) &gt; 60</p>
+<h2 id="查询所有同学的学号、姓名、选课数、总成绩"><a href="#查询所有同学的学号、姓名、选课数、总成绩" class="headerlink" title="查询所有同学的学号、姓名、选课数、总成绩"></a>查询所有同学的学号、姓名、选课数、总成绩</h2><p>SELECT stu.stuid, stu.stuname,COUNT(score.courseid),SUM(score.score)<br>FROM tblstudent stu, tblCourse course, tblScore score<br>WHERE stu.stuid = score.stuid AND course.courseid = score.courseid<br>GROUP BY stu.stuid,stu.stuname ORDER BY stuid</p>
+<h2 id="查询姓“张”的老师的个数"><a href="#查询姓“张”的老师的个数" class="headerlink" title="查询姓“张”的老师的个数"></a>查询姓“张”的老师的个数</h2><p><img src="/images/Ahem/1569390424(1).jpg" alt="示例图"></p>
+<h2 id="查询没学过“张三”老师课的同学的学号、姓名"><a href="#查询没学过“张三”老师课的同学的学号、姓名" class="headerlink" title="查询没学过“张三”老师课的同学的学号、姓名"></a>查询没学过“张三”老师课的同学的学号、姓名</h2><p>SELECT *<br>FROM tblstudent<br>WHERE tblstudent.StuId NOT IN(SELECT tblscore.StuId FROM tblscore,<br>( SELECT t1.courseid kid FROM tblcourse t1,<br>(SELECT  tblteacher.TeaId tid FROM tblteacher WHERE tblteacher.TeaName=’张三’) t2<br>  WHERE t1.teaid=t2.tid) ykid  – 查出来张三老师上的课的课程id<br>  WHERE tblscore.CourseId=ykid.kid )<br>这是先查出来学过张三老师课程的同学，然后排用NOT IN排除掉</p>
+<h2 id="查询同时学过课程1和课程2的同学的学号、姓名"><a href="#查询同时学过课程1和课程2的同学的学号、姓名" class="headerlink" title="查询同时学过课程1和课程2的同学的学号、姓名"></a>查询同时学过课程1和课程2的同学的学号、姓名</h2><p>标准答案：<br> SELECT StuId,StuName FROM tblStudent st<br>  WHERE (SELECT COUNT(<em>) FROM tblScore s1 WHERE s1.StuId=st.StuId AND s1.CourseId=’001’)&gt;0<br>   AND<br>   (SELECT COUNT(</em>) FROM tblScore s2 WHERE s2.StuId=st.StuId AND s2.CourseId=’002’)&gt;0</p>
+<p> 其他答案：<br> SELECT<br>tblstudent.StuId,tblstudent.StuName<br>FROM<br>(SELECT t11.t1sid t33id<br>FROM<br>(SELECT t1.StuId t1sid FROM tblscore t1 WHERE t1.CourseId=’001’)t11,– 001的学生的id<br>(SELECT t1.StuId  t2sid FROM tblscore t1 WHERE t1.CourseId=’002’)t22– 002的学生的id<br>WHERE<br>t11.t1sid=t22.t2sid) t33   – 查出来的是学过“001”并且也学过编号“002”课程的同学的学号<br>,<br>tblstudent<br>WHERE tblstudent.StuId=t33.t33id</p>
+<h2 id="查询学过“李四”老师所教所有课程的所有同学的学号、姓名"><a href="#查询学过“李四”老师所教所有课程的所有同学的学号、姓名" class="headerlink" title="查询学过“李四”老师所教所有课程的所有同学的学号、姓名"></a>查询学过“李四”老师所教所有课程的所有同学的学号、姓名</h2><p>select st.StuId,st.StuName from tblstudent st where </p>
+<p>NOT EXISTS<br>(<br>//要满足的条件是：<br>//1:查叶平的id(两个)<br>//2：叶平的两个id（看做一个整体）不能包含在我学生对应的查出来的成绩表中的课程id</p>
+<p>select  tblcourse.CourseId from tblcourse where tblcourse.TeaId=<br>(<br>select  tblteacher.TeaId from tblteacher where tblteacher.TeaName=’叶平’– 查出叶平老师的id<br>) and tblcourse.CourseId nOT IN(<br>SELECT TBLSCORE.CourseId FROM TBLSCORE WHERE tblscore.StuId=st.StuId</p>
+<p>)<br>)</p>
+<h2 id="查询课程编号1的成绩比课程编号2的成绩高的所有同学的学号、姓名"><a href="#查询课程编号1的成绩比课程编号2的成绩高的所有同学的学号、姓名" class="headerlink" title="查询课程编号1的成绩比课程编号2的成绩高的所有同学的学号、姓名"></a>查询课程编号1的成绩比课程编号2的成绩高的所有同学的学号、姓名</h2><p>select tblstudent.StuId,tblstudent.StuName from tblstudent where<br>(<br>(select tblscore.Score from tblscore where tblstudent.StuId=tblscore.StuId and tblscore.CourseId=’002’)<br>&lt;(select tblscore.Score from tblscore where tblstudent.StuId=tblscore.StuId and tblscore.CourseId=’001’)<br>)</p>
+<h2 id="查询所有课程成绩小于60分的同学的学号、姓名"><a href="#查询所有课程成绩小于60分的同学的学号、姓名" class="headerlink" title="查询所有课程成绩小于60分的同学的学号、姓名"></a>查询所有课程成绩小于60分的同学的学号、姓名</h2><p>select tblstudent.StuId,tblstudent.StuName from tblstudent where<br>tblstudent.StuId NOT IN<br>(select tblscore.StuId from tblscore where tblstudent.StuId=tblscore.StuId AND tblscore.Score&gt;60)</p>
+<h2 id="查询至少有一门课程与学号为1001的同学所学课程相同的同学的学号和姓名"><a href="#查询至少有一门课程与学号为1001的同学所学课程相同的同学的学号和姓名" class="headerlink" title="查询至少有一门课程与学号为1001的同学所学课程相同的同学的学号和姓名"></a>查询至少有一门课程与学号为1001的同学所学课程相同的同学的学号和姓名</h2><p> 方法一：<br> —–嵌套子查询<br> Select StuId,StuName From tblStudent<br>  Where StuId In<br>  (<br>   Select Distinct StuId From tblScore Where CourseId In (Select CourseId From tblScore Where StuId=’1001’)<br>  )</p>
+<p> 方法二：<br> Select DistInct st.StuId,StuName From tblStudent st<br>  Inner Join tblScore sc ON st.StuId=sc.StuId<br>   Where sc.CourseId IN (Select CourseId From tblScore Where StuId=’1001’) </p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2019/09/25/shujuku1/" title="来做做数据库的题吧（一）">https://ironic333.github.io/2019/09/25/shujuku1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/15/仿抖音Num7/" rel="next" title="仿抖音微信小程序日记Num.7">
+                  <i class="fa fa-chevron-left"></i> 仿抖音微信小程序日记Num.7
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/27/shujuku2/" rel="prev" title="来做做数据库的题吧（二）">
+                  来做做数据库的题吧（二） <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的一些小题目"><span class="nav-number">1.</span> <span class="nav-text">数据库的一些小题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先看看表结构吧"><span class="nav-number">2.</span> <span class="nav-text">先看看表结构吧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询课程1的成绩比课程2的成绩高的所有学生的学号"><span class="nav-number">3.</span> <span class="nav-text">查询课程1的成绩比课程2的成绩高的所有学生的学号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询平均成绩大于60分的同学的学号和平均成绩"><span class="nav-number">4.</span> <span class="nav-text">查询平均成绩大于60分的同学的学号和平均成绩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询所有同学的学号、姓名、选课数、总成绩"><span class="nav-number">5.</span> <span class="nav-text">查询所有同学的学号、姓名、选课数、总成绩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询姓“张”的老师的个数"><span class="nav-number">6.</span> <span class="nav-text">查询姓“张”的老师的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询没学过“张三”老师课的同学的学号、姓名"><span class="nav-number">7.</span> <span class="nav-text">查询没学过“张三”老师课的同学的学号、姓名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询同时学过课程1和课程2的同学的学号、姓名"><span class="nav-number">8.</span> <span class="nav-text">查询同时学过课程1和课程2的同学的学号、姓名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询学过“李四”老师所教所有课程的所有同学的学号、姓名"><span class="nav-number">9.</span> <span class="nav-text">查询学过“李四”老师所教所有课程的所有同学的学号、姓名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询课程编号1的成绩比课程编号2的成绩高的所有同学的学号、姓名"><span class="nav-number">10.</span> <span class="nav-text">查询课程编号1的成绩比课程编号2的成绩高的所有同学的学号、姓名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询所有课程成绩小于60分的同学的学号、姓名"><span class="nav-number">11.</span> <span class="nav-text">查询所有课程成绩小于60分的同学的学号、姓名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询至少有一门课程与学号为1001的同学所学课程相同的同学的学号和姓名"><span class="nav-number">12.</span> <span class="nav-text">查询至少有一门课程与学号为1001的同学所学课程相同的同学的学号和姓名</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

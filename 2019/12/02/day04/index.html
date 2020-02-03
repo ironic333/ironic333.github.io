@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="0.学习目标（这篇前面什么电商行业的东西别看了都是18年的东西，都19年12月了，马爸爸都说新零售了，还什么电商，看看目录里面技术点的东西就行了）  了解电商行业 了解乐优商城项目结构 能独立搭建项目基本框架 能参考使用ES6的新语法">
+<meta name="keywords" content="-微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目搭建">
+<meta property="og:url" content="https://ironic333.github.io/2019/12/02/day04/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="0.学习目标（这篇前面什么电商行业的东西别看了都是18年的东西，都19年12月了，马爸爸都说新零售了，还什么电商，看看目录里面技术点的东西就行了）  了解电商行业 了解乐优商城项目结构 能独立搭建项目基本框架 能参考使用ES6的新语法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1525686041466.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529165766652.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1525686135308.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1525686160411.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529165714679.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1525697632643.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1525697681975.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1525703759035.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1525704277126.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529224631578.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529224746616.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529224804596.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529225577524.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529225751893.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529225984078.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529226086759.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529226475238.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529288386033.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529288749658.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529288865152.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529294593632.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1525744281610.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529299088082.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529299138961.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529299709029.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529299826248.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529299921171.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529300026401.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529300203991.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529300292096.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529300341449.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529300419107.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529335980812.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529336014109.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529337273897.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529337321847.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529337396077.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529337583947.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529337672465.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529337748507.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1539770110464.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529376275020.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529395660265.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1529420270814.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1526107640349.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1526108070980.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1526109778368.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1526109984544.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1526110159450.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1526110796839.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1526111537204.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1526111580742.png">
+<meta property="og:image" content="https://ironic333.github.io/images/leyou04/1527210872966.png">
+<meta property="og:updated_time" content="2019-12-02T08:56:23.171Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="项目搭建">
+<meta name="twitter:description" content="0.学习目标（这篇前面什么电商行业的东西别看了都是18年的东西，都19年12月了，马爸爸都说新零售了，还什么电商，看看目录里面技术点的东西就行了）  了解电商行业 了解乐优商城项目结构 能独立搭建项目基本框架 能参考使用ES6的新语法">
+<meta name="twitter:image" content="https://ironic333.github.io/images/leyou04/1525686041466.png">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2019/12/02/day04/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>项目搭建 | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2019/12/02/day04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">项目搭建
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-02 16:43:05 / 修改时间：16:56:23" itemprop="dateCreated datePublished" datetime="2019-12-02T16:43:05+08:00">2019-12-02</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="0-学习目标"><a href="#0-学习目标" class="headerlink" title="0.学习目标"></a>0.学习目标</h1><p>（这篇前面什么电商行业的东西别看了都是18年的东西，都19年12月了，马爸爸都说新零售了，还什么电商，看看目录里面技术点的东西就行了）</p>
+<ul>
+<li>了解电商行业</li>
+<li>了解乐优商城项目结构</li>
+<li>能独立搭建项目基本框架</li>
+<li>能参考使用ES6的新语法</li>
+</ul>
+<a id="more"></a>
+<h1 id="1-了解电商行业"><a href="#1-了解电商行业" class="headerlink" title="1.了解电商行业"></a>1.了解电商行业</h1><p>学习电商项目，自然要先了解这个行业，所以我们首先来聊聊电商行业</p>
+<h2 id="1-1-项目分类"><a href="#1-1-项目分类" class="headerlink" title="1.1.项目分类"></a>1.1.项目分类</h2><p>主要从需求方、盈利模式、技术侧重点这三个方面来看它们的不同</p>
+<h3 id="1-1-1-传统项目"><a href="#1-1-1-传统项目" class="headerlink" title="1.1.1.传统项目"></a>1.1.1.传统项目</h3><p>各种企业里面用的管理系统（ERP、HR、OA、CRM、物流管理系统。。。。。。。）</p>
+<ul>
+<li>需求方：公司、企业内部</li>
+<li>盈利模式：项目本身卖钱</li>
+<li>技术侧重点：业务功能</li>
+</ul>
+<h3 id="1-1-2-互联网项目"><a href="#1-1-2-互联网项目" class="headerlink" title="1.1.2.互联网项目"></a>1.1.2.互联网项目</h3><p>门户网站、电商网站：baidu.com、qq.com、taobao.com、jd.com  …… </p>
+<ul>
+<li>需求方：广大用户群体</li>
+<li>盈利模式：虚拟币、增值服务、广告收益……</li>
+<li>技术侧重点：网站性能、业务功能</li>
+</ul>
+<p>而我们今天要聊的就是互联网项目中的重要角色：电商</p>
+<h2 id="1-2-电商行业的发展"><a href="#1-2-电商行业的发展" class="headerlink" title="1.2.电商行业的发展"></a>1.2.电商行业的发展</h2><h3 id="1-2-1-钱景"><a href="#1-2-1-钱景" class="headerlink" title="1.2.1.钱景"></a>1.2.1.钱景</h3><p>近年来，中国的电子商务快速发展，交易额连创新高，电子商务在各领域的应用不断拓展和深化、相关服务业蓬勃发展、支撑体系不断健全完善、创新的动力和能力不断增强。电子商务正在与实体经济深度融合，进入规模性发展阶段，对经济社会生活的影响不断增大，正成为我国经济发展的新引擎。</p>
+<p>中国电子商务研究中心数据显示，截止到 2012 年底，中国电子商务市场交易规模达 7.85万亿人民币，同比增长 30.83%。其中，B2B 电子商务交易额达 6.25 万亿，同比增长 27%。而 2011 年全年，中国电子商务市场交易额达 6 万亿人民币，同比增长 33%，占 GDP 比重上升到 13%；2012 年，电子商务占 GDP 的比重已经高达 15%。</p>
+<p> <img src="/images/leyou04/1525686041466.png" alt></p>
+<h3 id="1-2-2-数据"><a href="#1-2-2-数据" class="headerlink" title="1.2.2.数据"></a>1.2.2.数据</h3><p><img src="/images/leyou04/1529165766652.png" alt="1529165766652"></p>
+<p>来看看双十一的成交数据：</p>
+<p><img src="/images/leyou04/1525686135308.png" alt="1525686135308"></p>
+<p><img src="/images/leyou04/1525686160411.png" alt="1525686160411"></p>
+<p>2016双11开场30分钟，创造<strong>每秒交易峰值17.5万笔</strong>，<strong>每秒</strong>支付峰值<strong>12万笔</strong>的新纪录。菜鸟单日物流订单量超过<strong>4.67亿</strong>，创历史新高。</p>
+<p><img src="/images/leyou04/1529165714679.png" alt="1529165714679"></p>
+<h3 id="1-2-3-技术特点"><a href="#1-2-3-技术特点" class="headerlink" title="1.2.3.技术特点"></a>1.2.3.技术特点</h3><p>从上面的数据我们不仅要看到钱，更要看到背后的技术实力。正是得益于电商行业的高强度并发压力，促使了BAT等巨头们的技术进步。电商行业有些什么特点呢？ </p>
+<ul>
+<li>技术范围广</li>
+<li>技术新</li>
+<li>高并发（分布式、静态化技术、缓存技术、异步并发、池化、队列）</li>
+<li>高可用（集群、负载均衡、限流、降级、熔断）</li>
+<li>数据量大 </li>
+<li>业务复杂</li>
+<li>数据安全</li>
+</ul>
+<h2 id="1-3-常见电商模式"><a href="#1-3-常见电商模式" class="headerlink" title="1.3.常见电商模式"></a>1.3.常见电商模式</h2><p>电商行业的一些常见模式：</p>
+<ul>
+<li>B2C：商家对个人，如：亚马逊、当当等</li>
+<li>C2C平台：个人对个人，如：闲鱼、拍拍网、ebay</li>
+<li>B2B平台：商家对商家，如：阿里巴巴、八方资源网等</li>
+<li>O2O：线上和线下结合，如：饿了么、电影票、团购等</li>
+<li>P2P：在线金融，贷款，如：网贷之家、人人聚财等。</li>
+<li>B2C平台：天猫、京东、一号店等</li>
+</ul>
+<h2 id="1-4-一些专业术语"><a href="#1-4-一些专业术语" class="headerlink" title="1.4.一些专业术语"></a>1.4.一些专业术语</h2><ul>
+<li><p>SaaS：软件即服务</p>
+</li>
+<li><p>SOA：面向服务</p>
+</li>
+<li><p>RPC：远程过程调用</p>
+</li>
+<li><p>RMI：远程方法调用</p>
+</li>
+<li><p>PV：(page view)，即页面浏览量；</p>
+<p>用户每1次对网站中的每个网页访问均被记录1次。用户对同一页面的多次访问，访问量累计</p>
+</li>
+<li><p>UV：(unique visitor)，独立访客</p>
+<p>指访问某个站点或点击某条新闻的不同IP地址的人数。在同一天内，uv只记录第一次进入网站的具有独立IP的访问者，在同一天内再次访问该网站则不计数。</p>
+</li>
+<li><p>PV与带宽：</p>
+<ul>
+<li>计算带宽大小需要关注两个指标：峰值流量和页面的平均大小。</li>
+<li>计算公式是：网站带宽= ( PV * 平均页面大小（单位MB）* 8 )/统计时间（换算到秒）</li>
+<li>为什么要乘以8？<ul>
+<li>网站大小为单位是字节(Byte)，而计算带宽的单位是bit，1Byte=8bit</li>
+</ul>
+</li>
+<li>这个计算的是平均带宽，高峰期还需要扩大一定倍数</li>
+</ul>
+</li>
+<li><p>PV、QPS、并发</p>
+<ul>
+<li><p>QPS：每秒处理的请求数量。</p>
+<ul>
+<li>比如你的程序处理一个请求平均需要0.1S，那么1秒就可以处理10个请求。QPS自然就是10，多线程情况下，这个数字可能就会有所增加。</li>
+</ul>
+</li>
+<li><p>由PV和QPS如何需要部署的服务器数量？</p>
+<ul>
+<li>根据二八原则，80%的请求集中在20%的时间来计算峰值压力：</li>
+<li>（每日PV * 80%） / （3600s * 24 * 20%） * 每个页面的请求数  = 每个页面每秒的请求数量</li>
+<li>然后除以服务器的QPS值，即可计算得出需要部署的服务器数量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-5-项目开发流程"><a href="#1-5-项目开发流程" class="headerlink" title="1.5.项目开发流程"></a>1.5.项目开发流程</h2><p>项目经理：管人 </p>
+<p>技术经理：</p>
+<p>产品经理：设计需求原型 </p>
+<p>测试：</p>
+<p>前端：大前端：UI 前端页面。</p>
+<p>后端：</p>
+<p>移动端：</p>
+<p>项目开发流程图：</p>
+<p> <img src="/images/leyou04/1525697632643.png" alt></p>
+<p>公司现状：</p>
+<p> <img src="/images/leyou04/1525697681975.png" alt></p>
+<h1 id="2-乐优商城介绍"><a href="#2-乐优商城介绍" class="headerlink" title="2.乐优商城介绍"></a>2.乐优商城介绍</h1><h2 id="2-1-项目介绍"><a href="#2-1-项目介绍" class="headerlink" title="2.1.项目介绍"></a>2.1.项目介绍</h2><ul>
+<li>乐优商城是一个全品类的电商购物网站（B2C）。</li>
+<li>用户可以在线购买商品、加入购物车、下单</li>
+<li>可以评论已购买商品</li>
+<li>管理员可以在后台管理商品的上下架、促销活动</li>
+<li>管理员可以监控商品销售状况</li>
+<li>客服可以在后台处理退款操作</li>
+<li>希望未来3到5年可以支持千万用户的使用</li>
+</ul>
+<h2 id="2-2-系统架构"><a href="#2-2-系统架构" class="headerlink" title="2.2.系统架构"></a>2.2.系统架构</h2><h3 id="2-2-1-架构图"><a href="#2-2-1-架构图" class="headerlink" title="2.2.1.架构图"></a>2.2.1.架构图</h3><p>乐优商城架构缩略图，大图请参考课前资料：</p>
+<p><img src="/images/leyou04/1525703759035.png" alt="1525703759035"></p>
+<h3 id="2-2-2-系统架构解读"><a href="#2-2-2-系统架构解读" class="headerlink" title="2.2.2.系统架构解读"></a>2.2.2.系统架构解读</h3><p>整个乐优商城可以分为两部分：后台管理系统、前台门户系统。</p>
+<ul>
+<li><p>后台管理：</p>
+<ul>
+<li>后台系统主要包含以下功能：<ul>
+<li>商品管理，包括商品分类、品牌、商品规格等信息的管理</li>
+<li>销售管理，包括订单统计、订单退款处理、促销活动生成等</li>
+<li>用户管理，包括用户控制、冻结、解锁等</li>
+<li>权限管理，整个网站的权限控制，采用JWT鉴权方案，对用户及API进行权限控制</li>
+<li>统计，各种数据的统计分析展示</li>
+</ul>
+</li>
+<li>后台系统会采用前后端分离开发，而且整个后台管理系统会使用Vue.js框架搭建出单页应用（SPA）。</li>
+</ul>
+</li>
+<li><p>前台门户</p>
+<ul>
+<li>前台门户面向的是客户，包含与客户交互的一切功能。例如：<ul>
+<li>搜索商品</li>
+<li>加入购物车</li>
+<li>下单</li>
+<li>评价商品等等</li>
+</ul>
+</li>
+<li>前台系统我们会使用Thymeleaf模板引擎技术来完成页面开发。出于SEO优化的考虑，我们将不采用单页应用。</li>
+</ul>
+<p><img src="/images/leyou04/1525704277126.png" alt="1525704277126"></p>
+</li>
+</ul>
+<p>无论是前台还是后台系统，都共享相同的微服务集群，包括：</p>
+<ul>
+<li>商品微服务：商品及商品分类、品牌、库存等的服务</li>
+<li>搜索微服务：实现搜索功能</li>
+<li>订单微服务：实现订单相关</li>
+<li>购物车微服务：实现购物车相关功能</li>
+<li>用户中心：用户的登录注册等功能</li>
+<li>Eureka注册中心</li>
+<li>Zuul网关服务</li>
+<li>…</li>
+</ul>
+<h1 id="3-项目搭建"><a href="#3-项目搭建" class="headerlink" title="3.项目搭建"></a>3.项目搭建</h1><h2 id="3-1-技术选型"><a href="#3-1-技术选型" class="headerlink" title="3.1.技术选型"></a>3.1.技术选型</h2><p>前端技术：</p>
+<ul>
+<li>基础的HTML、CSS、JavaScript（基于ES6标准）</li>
+<li>JQuery</li>
+<li>Vue.js 2.0以及基于Vue的框架：Vuetify（UI框架）</li>
+<li>前端构建工具：WebPack</li>
+<li>前端安装包工具：NPM</li>
+<li>Vue脚手架：Vue-cli</li>
+<li>Vue路由：vue-router</li>
+<li>ajax框架：axios</li>
+<li>基于Vue的富文本框架：quill-editor </li>
+</ul>
+<p>后端技术：</p>
+<ul>
+<li>基础的SpringMVC、Spring 5.x和MyBatis3</li>
+<li>Spring Boot 2.0.7版本</li>
+<li>Spring Cloud 最新版 Finchley.SR2</li>
+<li>Redis-4.0 </li>
+<li>RabbitMQ-3.4</li>
+<li>Elasticsearch-6.3</li>
+<li>nginx-1.14.2</li>
+<li>FastDFS - 5.0.8</li>
+<li>MyCat</li>
+<li>Thymeleaf</li>
+<li>mysql 5.6</li>
+</ul>
+<h2 id="3-2-开发环境"><a href="#3-2-开发环境" class="headerlink" title="3.2.开发环境"></a>3.2.开发环境</h2><p>为了保证开发环境的统一，希望每个人都按照我的环境来配置：</p>
+<ul>
+<li>IDE：我们使用Idea 2017.3 版本</li>
+<li>JDK：统一使用JDK1.8</li>
+<li>项目构建：maven3.3.9以上版本即可（3.5.2）</li>
+<li>版本控制工具：git</li>
+</ul>
+<p>idea大家可以在我的课前资料中找到。另外，使用帮助大家可以参考课前资料的《idea使用指南.md》</p>
+<h2 id="3-3-域名"><a href="#3-3-域名" class="headerlink" title="3.3.域名"></a>3.3.域名</h2><p>我们在开发的过程中，为了保证以后的生产、测试环境统一。尽量都采用域名来访问项目。</p>
+<p>一级域名：<a href="http://www.leyou.com，leyou.com" target="_blank" rel="noopener">www.leyou.com，leyou.com</a> leyou.cn </p>
+<p>二级域名：manage.leyou.com/item , api.leyou.com</p>
+<p>我们可以通过switchhost工具来修改自己的host对应的地址，只要把这些域名指向127.0.0.1，那么跟你用localhost的效果是完全一样的。</p>
+<p>switchhost可以去课前资料寻找。</p>
+<h2 id="3-4-创建父工程"><a href="#3-4-创建父工程" class="headerlink" title="3.4.创建父工程"></a>3.4.创建父工程</h2><p>创建统一的父工程：leyou，用来管理依赖及其版本，注意是创建project，而不是module</p>
+<p><img src="/images/leyou04/1529224631578.png" alt="1529224631578"></p>
+<p>填写项目信息：</p>
+<p><img src="/images/leyou04/1529224746616.png" alt="1529224746616"></p>
+<p>填写保存的位置信息：</p>
+<p><img src="/images/leyou04/1529224804596.png" alt="1529224804596"></p>
+<p>然后将pom文件修改成我这个样子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.parent<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>leyou<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">spring-cloud.version</span>&gt;</span>Finchley.SR2<span class="tag">&lt;/<span class="name">spring-cloud.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">mybatis.starter.version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">mybatis.starter.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">mapper.starter.version</span>&gt;</span>2.0.2<span class="tag">&lt;/<span class="name">mapper.starter.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">druid.starter.version</span>&gt;</span>1.1.9<span class="tag">&lt;/<span class="name">druid.starter.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">mysql.version</span>&gt;</span>5.1.32<span class="tag">&lt;/<span class="name">mysql.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">pageHelper.starter.version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">pageHelper.starter.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">leyou.latest.version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">leyou.latest.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">fastDFS.client.version</span>&gt;</span>1.26.1-RELEASE<span class="tag">&lt;/<span class="name">fastDFS.client.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- springCloud --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- mybatis启动器 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mybatis.starter.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 通用Mapper启动器 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>tk.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mapper.starter.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 分页助手启动器 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;pageHelper.starter.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- mysql驱动 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mysql.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!--FastDFS客户端--&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.tobato<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastdfs-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;fastDFS.client.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以发现，我们在父工程中引入了SpringCloud等，很多以后需要用到的依赖，以后创建的子工程就不需要自己引入了。</p>
+<p>可以删除src目录，工程结构如下：</p>
+<p> <img src="/images/leyou04/1529225577524.png" alt="1529225577524"></p>
+<h2 id="3-5-创建EurekaServer"><a href="#3-5-创建EurekaServer" class="headerlink" title="3.5.创建EurekaServer"></a>3.5.创建EurekaServer</h2><h3 id="3-5-1-创建工程"><a href="#3-5-1-创建工程" class="headerlink" title="3.5.1.创建工程"></a>3.5.1.创建工程</h3><p>我们的注册中心，起名为：leyou-registry</p>
+<p>选择新建module：</p>
+<p><img src="/images/leyou04/1529225751893.png" alt="1529225751893"></p>
+<p>不要选择骨架：</p>
+<p><img src="/images/leyou04/1529225984078.png" alt="1529225984078"></p>
+<p>然后填写项目坐标，我们的项目名称为leyou-registry:</p>
+<p><img src="/images/leyou04/1529226086759.png" alt="1529226086759"></p>
+<p>选择安装目录，因为是聚合项目，目录应该是在父工程leyou的下面：</p>
+<p><img src="/images/leyou04/1529226475238.png" alt="1529226475238"></p>
+<h3 id="3-5-2-添加依赖"><a href="#3-5-2-添加依赖" class="headerlink" title="3.5.2.添加依赖"></a>3.5.2.添加依赖</h3><p>添加EurekaServer的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.parent<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.common<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou-registry<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-3-编写启动类"><a href="#3-5-3-编写启动类" class="headerlink" title="3.5.3.编写启动类"></a>3.5.3.编写启动类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeyouRegistryApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(LeyouRegistryApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-4-配置文件"><a href="#3-5-4-配置文件" class="headerlink" title="3.5.4.配置文件"></a>3.5.4.配置文件</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10086</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">leyou-registry</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:$&#123;server.port&#125;/eureka</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span> <span class="comment"># 把自己注册到eureka服务列表</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">false</span> <span class="comment"># 拉取eureka服务信息</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="attr">enable-self-preservation:</span> <span class="literal">false</span> <span class="comment"># 关闭自我保护</span></span><br><span class="line">    <span class="attr">eviction-interval-timer-in-ms:</span> <span class="number">5000</span> <span class="comment"># 每隔5秒钟，进行一次服务列表的清理</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-5-项目的结构"><a href="#3-5-5-项目的结构" class="headerlink" title="3.5.5.项目的结构"></a>3.5.5.项目的结构</h3><p>目前，整个项目的结构如图：</p>
+<p> <img src="/images/leyou04/1529288386033.png" alt="1529288386033"></p>
+<h2 id="3-6-创建Zuul网关"><a href="#3-6-创建Zuul网关" class="headerlink" title="3.6.创建Zuul网关"></a>3.6.创建Zuul网关</h2><h3 id="3-6-1-创建工程"><a href="#3-6-1-创建工程" class="headerlink" title="3.6.1.创建工程"></a>3.6.1.创建工程</h3><p>与上面类似，选择maven方式创建Module，然后填写项目名称，我们命名为：leyou-gateway</p>
+<p><img src="/images/leyou04/1529288749658.png" alt="1529288749658"></p>
+<p>填写保存的目录：</p>
+<p><img src="/images/leyou04/1529288865152.png" alt="1529288865152"></p>
+<h3 id="3-6-2-添加依赖"><a href="#3-6-2-添加依赖" class="headerlink" title="3.6.2.添加依赖"></a>3.6.2.添加依赖</h3><p>这里我们需要添加Zuul和EurekaClient的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.parent<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.common<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-zuul<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- springboot提供微服务检测接口，默认对外提供几个接口 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-3-编写启动类"><a href="#3-6-3-编写启动类" class="headerlink" title="3.6.3.编写启动类"></a>3.6.3.编写启动类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@EnableZuulProxy</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeyouGatewayApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(LeyouGatewayApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-4-配置文件"><a href="#3-6-4-配置文件" class="headerlink" title="3.6.4.配置文件"></a>3.6.4.配置文件</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10010</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">leyou-gateway</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">registry-fetch-interval-seconds:</span> <span class="number">5</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span></span><br><span class="line"><span class="attr">zuul:</span></span><br><span class="line">  <span class="attr">prefix:</span> <span class="string">/api</span> <span class="comment"># 路由路径前缀</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-5-项目结构"><a href="#3-6-5-项目结构" class="headerlink" title="3.6.5.项目结构"></a>3.6.5.项目结构</h3><p>目前，leyou下有两个子模块：</p>
+<ul>
+<li>leyou-registry：服务的注册中心（EurekaServer）</li>
+<li>leyou-gateway：服务网关（Zuul）</li>
+</ul>
+<p>目前，服务的结构如图所示：</p>
+<p> <img src="/images/leyou04/1529294593632.png" alt="1529294593632"></p>
+<p>截止到这里，我们已经把基础服务搭建完毕，为了便于开发，统一配置中心（ConfigServer）我们留待以后添加。</p>
+<h2 id="3-7-创建商品微服务"><a href="#3-7-创建商品微服务" class="headerlink" title="3.7.创建商品微服务"></a>3.7.创建商品微服务</h2><p>既然是一个全品类的电商购物平台，那么核心自然就是商品。因此我们要搭建的第一个服务，就是商品微服务。其中会包含对于商品相关的一系列内容的管理，包括：</p>
+<ul>
+<li>商品分类管理</li>
+<li>品牌管理</li>
+<li>商品规格参数管理</li>
+<li>商品管理</li>
+<li>库存管理</li>
+</ul>
+<h3 id="3-7-1-微服务的结构"><a href="#3-7-1-微服务的结构" class="headerlink" title="3.7.1.微服务的结构"></a>3.7.1.微服务的结构</h3><p>因为与商品的品类相关，我们的工程命名为<code>leyou-item</code>.</p>
+<p>需要注意的是，我们的leyou-item是一个微服务，那么将来肯定会有其它系统需要来调用服务中提供的接口，获取的接口数据，也需要对应的实体类来封装，因此肯定也会使用到接口中关联的实体类。</p>
+<p>因此这里我们需要使用聚合工程，将要提供的接口及相关实体类放到独立子工程中，以后别人引用的时候，只需要知道坐标即可。</p>
+<p>我们会在leyou-item中创建两个子工程：</p>
+<ul>
+<li>leyou-item-interface：主要是对外暴露的接口及相关实体类</li>
+<li>leyou-item-service：所有业务逻辑及内部使用接口</li>
+</ul>
+<p>调用关系如图所示：</p>
+<p><img src="/images/leyou04/1525744281610.png" alt="1525744281610"></p>
+<h3 id="3-7-2-leyou-item"><a href="#3-7-2-leyou-item" class="headerlink" title="3.7.2.leyou-item"></a>3.7.2.leyou-item</h3><p>依然是使用maven构建：</p>
+<p><img src="/images/leyou04/1529299088082.png" alt="1529299088082"></p>
+<p>保存的位置：</p>
+<p><img src="/images/leyou04/1529299138961.png" alt="1529299138961"></p>
+<p>因为是聚合工程，所以把项目打包方式设置为pom</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.parent<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.item<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou-item<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 打包方式为pom --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-7-3-leyou-item-interface"><a href="#3-7-3-leyou-item-interface" class="headerlink" title="3.7.3.leyou-item-interface"></a>3.7.3.leyou-item-interface</h3><p>在leyou-item工程上点击右键，选择new –&gt; module:</p>
+<p><img src="/images/leyou04/1529299709029.png" alt="1529299709029"></p>
+<p>依然是使用maven构建，注意父工程是leyou-item：</p>
+<p><img src="/images/leyou04/1529299826248.png" alt="1529299826248"></p>
+<p><strong>注意</strong>：目录结构，保存到<code>leyou-item</code>下的<code>leyou-item-interface</code>目录中：</p>
+<p><img src="/images/leyou04/1529299921171.png" alt="1529299921171"></p>
+<p>点击Finish完成。</p>
+<p>此时的项目结构：</p>
+<p> <img src="/images/leyou04/1529300026401.png" alt="1529300026401"></p>
+<h3 id="3-7-4-leyou-item-service"><a href="#3-7-4-leyou-item-service" class="headerlink" title="3.7.4.leyou-item-service"></a>3.7.4.leyou-item-service</h3><p>与<code>leyou-item-interface</code>类似，我们选择在<code>leyou-item</code>上右键，新建module，然后填写项目信息：</p>
+<p><img src="/images/leyou04/1529300203991.png" alt="1529300203991"></p>
+<p>填写存储位置</p>
+<p><img src="/images/leyou04/1529300292096.png" alt="1529300292096"></p>
+<p>点击Finish完成。</p>
+<h3 id="3-7-5-整个微服务结构"><a href="#3-7-5-整个微服务结构" class="headerlink" title="3.7.5.整个微服务结构"></a>3.7.5.整个微服务结构</h3><p>如图所示：</p>
+<p> <img src="/images/leyou04/1529300341449.png" alt="1529300341449"></p>
+<p>我们打开leyou-item的pom查看，会发现leyou-item-interface和leyou-item-service都已经成为module了：</p>
+<p><img src="/images/leyou04/1529300419107.png" alt="1529300419107"></p>
+<p>可以删除leyou-item工程的src目录</p>
+<h3 id="3-7-6-添加依赖"><a href="#3-7-6-添加依赖" class="headerlink" title="3.7.6.添加依赖"></a>3.7.6.添加依赖</h3><p>接下来我们给<code>leyou-item-service</code>中添加依赖：</p>
+<p>思考一下我们需要什么？</p>
+<ul>
+<li>Eureka客户端</li>
+<li>web启动器</li>
+<li>mybatis启动器</li>
+<li>通用mapper启动器</li>
+<li>分页助手启动器</li>
+<li>连接池，我们用默认的Hykira</li>
+<li>mysql驱动</li>
+<li>千万不能忘了，我们自己也需要<code>ly-item-interface</code>中的实体类</li>
+</ul>
+<p>这些依赖，我们在顶级父工程：leyou中已经添加好了。所以直接引入即可：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou-item<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.item<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.item<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou-item-service<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- web启动器 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- eureka客户端 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- mybatis的启动器 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 通用mapper启动器 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>tk.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 分页助手启动器 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- jdbc启动器 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- mysql驱动 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leyou.item<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>leyou-item-interface<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- springboot检测服务启动器 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>leyou-item-interface中需要什么我们暂时不清楚，所以先不管。以后需要什么依赖，再引入。</p>
+<h3 id="3-7-7-编写启动和配置"><a href="#3-7-7-编写启动和配置" class="headerlink" title="3.7.7.编写启动和配置"></a>3.7.7.编写启动和配置</h3><p>在整个<code>leyou-item工程</code>中，只有<code>leyou-item-service</code>是需要启动的。因此在其中编写启动类即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeyouItemServiceApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(LeyouItemServiceApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后是全局属性文件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8081</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">item-service</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/leyou</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">hikari:</span></span><br><span class="line">      <span class="attr">max-lifetime:</span> <span class="number">28830000</span> <span class="comment"># 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒，参考MySQL wait_timeout参数（show variables like '%timeout%';）</span></span><br><span class="line">      <span class="attr">maximum-pool-size:</span> <span class="number">9</span> <span class="comment"># 连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">lease-renewal-interval-in-seconds:</span> <span class="number">5</span> <span class="comment"># 5秒钟发送一次心跳</span></span><br><span class="line">    <span class="attr">lease-expiration-duration-in-seconds:</span> <span class="number">10</span> <span class="comment"># 10秒不发送就过期</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-8-添加商品微服务的路由规则"><a href="#3-8-添加商品微服务的路由规则" class="headerlink" title="3.8.添加商品微服务的路由规则"></a>3.8.添加商品微服务的路由规则</h2><p>既然商品微服务已经创建，接下来肯定要添加路由规则到Zuul中，我们不使用默认的路由规则。</p>
+<p>修改leyou-gateway工程的application.yml配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">zuul:</span></span><br><span class="line">  <span class="attr">prefix:</span> <span class="string">/api</span> <span class="comment"># 路由路径前缀</span></span><br><span class="line">  <span class="attr">routes:</span></span><br><span class="line">    <span class="attr">item-service:</span> <span class="string">/item/**</span> <span class="comment"># 商品微服务的映射路径</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-9-启动测试"><a href="#3-9-启动测试" class="headerlink" title="3.9.启动测试"></a>3.9.启动测试</h2><p>我们分别启动：leyou-registry，leyou-gateway，leyou-item-service</p>
+<p> <img src="/images/leyou04/1529335980812.png" alt="1529335980812"></p>
+<p>查看Eureka面板：</p>
+<p><img src="/images/leyou04/1529336014109.png" alt="1529336014109"></p>
+<h2 id="3-10-测试路由规则"><a href="#3-10-测试路由规则" class="headerlink" title="3.10.测试路由规则"></a>3.10.测试路由规则</h2><p>为了测试路由规则是否畅通，我们是不是需要在item-service中编写一个controller接口呢？</p>
+<p>其实不需要，SpringBoot提供了一个依赖：actuator</p>
+<p>只要我们添加了actuator的依赖，它就会为我们生成一系列的访问接口：</p>
+<ul>
+<li>/info</li>
+<li>/health</li>
+<li>/refresh</li>
+<li>…</li>
+</ul>
+<p>添加依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>重启后访问Eureka控制台：</p>
+<p>鼠标悬停在item-service上，会显示一个地址：</p>
+<p><img src="/images/leyou04/1529337273897.png" alt="1529337273897"></p>
+<p>这就是actuator提供的接口，我们点击访问：</p>
+<p><img src="/images/leyou04/1529337321847.png" alt="1529337321847"></p>
+<p>因为我们没有添加信息，所以是一个空的json，但是可以肯定的是：我们能够访问到item-service了。</p>
+<p>接下来我们通过路由访问试试，根据路由规则，我们需要访问的地址是：</p>
+<p><a href="http://127.0.0.1:10010/api/item/actuator/info" target="_blank" rel="noopener">http://127.0.0.1:10010/api/item/actuator/info</a></p>
+<p><img src="/images/leyou04/1529337396077.png" alt="1529337396077"></p>
+<h2 id="3-11-通用工具模块"><a href="#3-11-通用工具模块" class="headerlink" title="3.11.通用工具模块"></a>3.11.通用工具模块</h2><p>有些工具或通用的约定内容，我们希望各个服务共享，因此需要创建一个工具模块：<code>leyou-common</code></p>
+<p>右键leyou工程，使用maven来构建module：</p>
+<p><img src="/images/leyou04/1529337583947.png" alt="1529337583947"></p>
+<p>位置信息：</p>
+<p><img src="/images/leyou04/1529337672465.png" alt="1529337672465"></p>
+<p>结构：</p>
+<p> <img src="/images/leyou04/1529337748507.png" alt="1529337748507"></p>
+<p>目前还不需要编码。</p>
+<p> <img src="/images/leyou04/1539770110464.png" alt="1539770110464"></p>
+<h1 id="4-ES6语法指南"><a href="#4-ES6语法指南" class="headerlink" title="4.ES6语法指南"></a>4.ES6语法指南</h1><p>后端项目搭建完毕，接下来就是前端页面了。不过在这之前需要一些准备工作。我们需要学习ES6的语法标准。</p>
+<p>什么是ES6？就是ECMAScript第6版标准。</p>
+<h2 id="4-1-什么是ECMAScript？"><a href="#4-1-什么是ECMAScript？" class="headerlink" title="4.1.什么是ECMAScript？"></a>4.1.什么是ECMAScript？</h2><p>来看下前端的发展历程：</p>
+<blockquote>
+<p>web1.0时代：</p>
+</blockquote>
+<ul>
+<li>最初的网页以HTML为主，是纯静态的网页。网页是只读的，信息流只能从服务的到客户端单向流通。<strong>开发人员也只关心页面的样式和内容</strong>即可。</li>
+</ul>
+<blockquote>
+<p>web2.0时代：</p>
+</blockquote>
+<ul>
+<li>1995年，网景工程师Brendan Eich 花了10天时间设计了JavaScript语言。</li>
+<li>1996年，微软发布了JScript，其实是JavaScript的逆向工程实现。</li>
+<li>1997年，为了统一各种不同script脚本语言，ECMA（欧洲计算机制造商协会）以JavaScript为基础，制定了<code>ECMAscript</code>标准规范。JavaScript和JScript都是<code>ECMAScript</code>的标准实现者，随后各大浏览器厂商纷纷实现了<code>ECMAScript</code>标准。</li>
+</ul>
+<p>所以，ECMAScript是浏览器脚本语言的规范，而各种我们熟知的js语言，如JavaScript则是规范的具体实现。</p>
+<h2 id="4-2-ECMAScript的快速发展"><a href="#4-2-ECMAScript的快速发展" class="headerlink" title="4.2.ECMAScript的快速发展"></a>4.2.ECMAScript的快速发展</h2><p>而后，ECMAScript就进入了快速发展期。</p>
+<ul>
+<li><p>1998年6月，ECMAScript 2.0 发布。</p>
+</li>
+<li><p>1999年12月，ECMAScript 3.0 发布。这时，ECMAScript 规范本身也相对比较完善和稳定了，但是接下来的事情，就比较悲剧了。</p>
+</li>
+<li><p>2007年10月。。。。ECMAScript 4.0 草案发布。</p>
+<p>这次的新规范，历时颇久，规范的新内容也有了很多争议。在制定ES4的时候，是分成了两个工作组同时工作的。</p>
+<ul>
+<li>一边是以 Adobe, Mozilla, Opera 和 Google为主的 ECMAScript 4.0 工作组。</li>
+<li>一边是以 Microsoft 和 Yahoo 为主的 ECMAScript 3.1 工作组。</li>
+</ul>
+<p>ECMAScript 4 的很多主张比较激进，改动较大。而 ECMAScript 3.1 则主张小幅更新。最终经过 TC39 的会议，决定将一部分不那么激进的改动保留发布为 ECMAScript 3.1，而ES4的内容，则延续到了后来的ECMAScript5和6版本中</p>
+</li>
+<li><p>2009年12月，ECMAScript 5 发布。</p>
+</li>
+<li><p>2011年6月，ECMAScript 5.1 发布。</p>
+</li>
+<li><p>2015年6月，ECMAScript 6，也就是 ECMAScript 2015 发布了。 并且从 ECMAScript 6 开始，开始采用年号来做版本。即 ECMAScript 2015，就是ECMAScript6。 它的目标，是使得 JavaScript 语言可以用来编写复杂的大型应用程序，成为企业级开发语言。</p>
+</li>
+</ul>
+<h2 id="4-3-ES5和6的一些新特性"><a href="#4-3-ES5和6的一些新特性" class="headerlink" title="4.3.ES5和6的一些新特性"></a>4.3.ES5和6的一些新特性</h2><p>我们这里只把一些常用的进行学习，更详细的大家参考：<a href="http://es6.ruanyifeng.com/?search=reduce&x=0&y=0#README" target="_blank" rel="noopener">阮一峰的ES6教程</a></p>
+<p>创建一个空的html页面：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-1-let-和-const-命令"><a href="#4-3-1-let-和-const-命令" class="headerlink" title="4.3.1.let 和 const 命令"></a>4.3.1.let 和 const 命令</h3><blockquote>
+<p>var</p>
+</blockquote>
+<p>之前，js定义变量只有一个关键字：<code>var</code></p>
+<p><code>var</code>有一个问题，就是定义的变量有时会莫名奇妙的成为全局变量。</p>
+<p>例如这样的一段代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"循环外："</span> + i)</span><br></pre></td></tr></table></figure>
+
+<p>你猜下打印的结果是什么？</p>
+<p><img src="/images/leyou04/1529376275020.png" alt="1529376275020"></p>
+<blockquote>
+<p>let</p>
+</blockquote>
+<p><code>let</code>所声明的变量，只在<code>let</code>命令所在的代码块内有效。</p>
+<p>我们把刚才的<code>var</code>改成<code>let</code>试试：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"循环外："</span> + i)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="/images/leyou04/1529395660265.png" alt="1529395660265"></p>
+<blockquote>
+<p>const</p>
+</blockquote>
+<p><code>const</code>声明的变量是常量，不能被修改</p>
+<p><img src="/images/leyou04/1529420270814.png" alt="1529420270814"></p>
+<h3 id="4-3-2-字符串扩展"><a href="#4-3-2-字符串扩展" class="headerlink" title="4.3.2.字符串扩展"></a>4.3.2.字符串扩展</h3><blockquote>
+<p>新的API</p>
+</blockquote>
+<p>ES6为字符串扩展了几个新的API：</p>
+<ul>
+<li><code>includes()</code>：返回布尔值，表示是否找到了参数字符串。</li>
+<li><code>startsWith()</code>：返回布尔值，表示参数字符串是否在原字符串的头部。</li>
+<li><code>endsWith()</code>：返回布尔值，表示参数字符串是否在原字符串的尾部。</li>
+</ul>
+<p>实验一下：</p>
+<p> <img src="/images/leyou04/1526107640349.png" alt="1526107640349"></p>
+<blockquote>
+<p>字符串模板</p>
+</blockquote>
+<p>ES6中提供了`来作为字符串模板标记。我们可以这么玩：</p>
+<p> <img src="/images/leyou04/1526108070980.png" alt="1526108070980"></p>
+<p>在两个`之间的部分都会被作为字符串的值，不管你任意换行，甚至加入js脚本</p>
+<h3 id="4-3-3-解构表达式"><a href="#4-3-3-解构表达式" class="headerlink" title="4.3.3.解构表达式"></a>4.3.3.解构表达式</h3><blockquote>
+<p>数组解构</p>
+</blockquote>
+<p>比如有一个数组：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+
+<p>我想获取其中的值，只能通过角标。ES6可以这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [x,y,z] = arr;<span class="comment">// x，y，z将与arr中的每个位置对应来取值</span></span><br><span class="line"><span class="comment">// 然后打印</span></span><br><span class="line"><span class="built_in">console</span>.log(x,y,z);</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p> <img src="/images/leyou04/1526109778368.png" alt="1526109778368"></p>
+<blockquote>
+<p>对象解构</p>
+</blockquote>
+<p>例如有个person对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">    name:<span class="string">"jack"</span>,</span><br><span class="line">    age:<span class="number">21</span>,</span><br><span class="line">    language: [<span class="string">'java'</span>,<span class="string">'js'</span>,<span class="string">'css'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以这么做：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 解构表达式获取值</span></span><br><span class="line"><span class="keyword">const</span> &#123;name,age,language&#125; = person;</span><br><span class="line"><span class="comment">// 打印</span></span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line"><span class="built_in">console</span>.log(language);</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p> <img src="/images/leyou04/1526109984544.png" alt="1526109984544"></p>
+<p>如过想要用其它变量接收，需要额外指定别名：</p>
+<p> <img src="/images/leyou04/1526110159450.png" alt="1526110159450"></p>
+<p><code>{name:n}</code>：name是person中的属性名，冒号后面的n是解构后要赋值给的变量。</p>
+<h3 id="4-3-4-函数优化"><a href="#4-3-4-函数优化" class="headerlink" title="4.3.4.函数优化"></a>4.3.4.函数优化</h3><blockquote>
+<p>函数参数默认值</p>
+</blockquote>
+<p>在ES6以前，我们无法给一个函数参数设置默认值，只能采用变通写法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a , b</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 判断b是否为空，为空就给默认值1</span></span><br><span class="line">    b = b || <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 传一个参数</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+
+<p>现在可以这么写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a , b = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 传一个参数</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>箭头函数</p>
+</blockquote>
+<p>ES6中定义函数的简写方式：</p>
+<p>一个参数时：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> print = <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(obj);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 简写为：</span></span><br><span class="line"><span class="keyword">var</span> print2 = <span class="function"><span class="params">obj</span> =&gt;</span> <span class="built_in">console</span>.log(obj);</span><br></pre></td></tr></table></figure>
+
+<p>多个参数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两个参数的情况：</span></span><br><span class="line"><span class="keyword">var</span> sum = <span class="function"><span class="keyword">function</span> (<span class="params">a , b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 简写为：</span></span><br><span class="line"><span class="keyword">var</span> sum2 = <span class="function">(<span class="params">a,b</span>) =&gt;</span> a+b;</span><br></pre></td></tr></table></figure>
+
+<p>代码不止一行，可以用<code>{}</code>括起来</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum3 = <span class="function">(<span class="params">a,b</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对象的函数属性简写</p>
+</blockquote>
+<p>比如一个Person对象，里面有eat方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name: <span class="string">"jack"</span>,</span><br><span class="line">    <span class="comment">// 以前：</span></span><br><span class="line">    eat: <span class="function"><span class="keyword">function</span> (<span class="params">food</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">"在吃"</span> + food);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 箭头函数版：</span></span><br><span class="line">    eat2: <span class="function"><span class="params">food</span> =&gt;</span> <span class="built_in">console</span>.log(person.name + <span class="string">"在吃"</span> + food),<span class="comment">// 这里拿不到this</span></span><br><span class="line">    <span class="comment">// 简写版：</span></span><br><span class="line">    eat3(food)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">"在吃"</span> + food);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>箭头函数结合解构表达式</p>
+</blockquote>
+<p>比如有一个函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">    name:<span class="string">"jack"</span>,</span><br><span class="line">    age:<span class="number">21</span>,</span><br><span class="line">    language: [<span class="string">'java'</span>,<span class="string">'js'</span>,<span class="string">'css'</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params">person</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello,"</span> + person.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果用箭头函数和解构表达式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hi = <span class="function">(<span class="params">&#123;name&#125;</span>) =&gt;</span>  <span class="built_in">console</span>.log(<span class="string">"hello,"</span> + name);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-5-map和reduce"><a href="#4-3-5-map和reduce" class="headerlink" title="4.3.5.map和reduce"></a>4.3.5.map和reduce</h3><p>数组中新增了map和reduce方法。</p>
+<blockquote>
+<p>map</p>
+</blockquote>
+<p><code>map()</code>：接收一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回。</p>
+<p>举例：有一个字符串数组，我们希望转为int数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">'1'</span>,<span class="string">'20'</span>,<span class="string">'-5'</span>,<span class="string">'3'</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr)</span><br><span class="line"></span><br><span class="line">arr = arr.map(<span class="function"><span class="params">s</span> =&gt;</span> <span class="built_in">parseInt</span>(s));</span><br><span class="line"><span class="built_in">console</span>.log(arr)</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="/images/leyou04/1526110796839.png" alt="1526110796839"></p>
+<blockquote>
+<p>reduce</p>
+</blockquote>
+<p><code>reduce()</code>：接收一个函数（必须）和一个初始值（可选）。</p>
+<p>第一个参数（函数）接收两个参数：</p>
+<ul>
+<li>第一个参数是上一次reduce处理的结果</li>
+<li>第二个参数是数组中要处理的下一个元素</li>
+</ul>
+<p><code>reduce()</code>会从左到右依次把数组中的元素用reduce处理，并把处理的结果作为下次reduce的第一个参数。如果是第一次，会把前两个元素作为计算参数，或者把用户指定的初始值作为起始参数</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const arr = [1,20,-5,3]</span><br></pre></td></tr></table></figure>
+
+<p>没有初始值：</p>
+<p> <img src="/images/leyou04/1526111537204.png" alt="1526111537204"></p>
+<p>指定初始值：</p>
+<p> <img src="/images/leyou04/1526111580742.png" alt="1526111580742"></p>
+<h3 id="4-3-6-对象扩展"><a href="#4-3-6-对象扩展" class="headerlink" title="4.3.6.对象扩展"></a>4.3.6.对象扩展</h3><p>ES6给Object拓展了许多新的方法，如：</p>
+<ul>
+<li><p>keys(obj)：获取对象的所有key形成的数组</p>
+</li>
+<li><p>values(obj)：获取对象的所有value形成的数组</p>
+</li>
+<li><p>entries(obj)：获取对象的所有key和value形成的二维数组。格式：<code>[[k1,v1],[k2,v2],...]</code></p>
+</li>
+<li><p>assign(dest, …src) ：将多个src对象的值 拷贝到 dest中（浅拷贝）。</p>
+<p><img src="/images/leyou04/1527210872966.png" alt="1527210872966"></p>
+</li>
+</ul>
+<h3 id="4-3-7-数组扩展"><a href="#4-3-7-数组扩展" class="headerlink" title="4.3.7.数组扩展"></a>4.3.7.数组扩展</h3><p>ES6给数组新增了许多方法：</p>
+<ul>
+<li>find(callback)：数组实例的find方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为true的成员，然后返回该成员。如果没有符合条件的成员，则返回undefined。 </li>
+<li>findIndex(callback)：数组实例的findIndex方法的用法与find方法非常类似，返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回-1。 </li>
+<li>includes(数组元素)：与find类似，如果匹配到元素，则返回true，代表找到了。</li>
+</ul>
+
+    <div id="aplayer-QQvNzxav" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1297483" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2019/12/02/day04/" title="项目搭建">https://ironic333.github.io/2019/12/02/day04/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/微服务/" rel="tag"># -微服务</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/22/SpringCloud2/" rel="next" title="SpringCloud">
+                  <i class="fa fa-chevron-left"></i> SpringCloud
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/02/day05-vue入门/" rel="prev" title="Vue入门知识">
+                  Vue入门知识 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-学习目标"><span class="nav-number">1.</span> <span class="nav-text">0.学习目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-了解电商行业"><span class="nav-number">2.</span> <span class="nav-text">1.了解电商行业</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-项目分类"><span class="nav-number">2.1.</span> <span class="nav-text">1.1.项目分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-传统项目"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1.传统项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-互联网项目"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2.互联网项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-电商行业的发展"><span class="nav-number">2.2.</span> <span class="nav-text">1.2.电商行业的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-钱景"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1.钱景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-数据"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2.数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-技术特点"><span class="nav-number">2.2.3.</span> <span class="nav-text">1.2.3.技术特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-常见电商模式"><span class="nav-number">2.3.</span> <span class="nav-text">1.3.常见电商模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-一些专业术语"><span class="nav-number">2.4.</span> <span class="nav-text">1.4.一些专业术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-项目开发流程"><span class="nav-number">2.5.</span> <span class="nav-text">1.5.项目开发流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-乐优商城介绍"><span class="nav-number">3.</span> <span class="nav-text">2.乐优商城介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-项目介绍"><span class="nav-number">3.1.</span> <span class="nav-text">2.1.项目介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-系统架构"><span class="nav-number">3.2.</span> <span class="nav-text">2.2.系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-架构图"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1.架构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-系统架构解读"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2.系统架构解读</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-项目搭建"><span class="nav-number">4.</span> <span class="nav-text">3.项目搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-技术选型"><span class="nav-number">4.1.</span> <span class="nav-text">3.1.技术选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-开发环境"><span class="nav-number">4.2.</span> <span class="nav-text">3.2.开发环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-域名"><span class="nav-number">4.3.</span> <span class="nav-text">3.3.域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-创建父工程"><span class="nav-number">4.4.</span> <span class="nav-text">3.4.创建父工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-创建EurekaServer"><span class="nav-number">4.5.</span> <span class="nav-text">3.5.创建EurekaServer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-1-创建工程"><span class="nav-number">4.5.1.</span> <span class="nav-text">3.5.1.创建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-2-添加依赖"><span class="nav-number">4.5.2.</span> <span class="nav-text">3.5.2.添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-3-编写启动类"><span class="nav-number">4.5.3.</span> <span class="nav-text">3.5.3.编写启动类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-4-配置文件"><span class="nav-number">4.5.4.</span> <span class="nav-text">3.5.4.配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-5-项目的结构"><span class="nav-number">4.5.5.</span> <span class="nav-text">3.5.5.项目的结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-创建Zuul网关"><span class="nav-number">4.6.</span> <span class="nav-text">3.6.创建Zuul网关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-1-创建工程"><span class="nav-number">4.6.1.</span> <span class="nav-text">3.6.1.创建工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-2-添加依赖"><span class="nav-number">4.6.2.</span> <span class="nav-text">3.6.2.添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-3-编写启动类"><span class="nav-number">4.6.3.</span> <span class="nav-text">3.6.3.编写启动类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-4-配置文件"><span class="nav-number">4.6.4.</span> <span class="nav-text">3.6.4.配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-5-项目结构"><span class="nav-number">4.6.5.</span> <span class="nav-text">3.6.5.项目结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-创建商品微服务"><span class="nav-number">4.7.</span> <span class="nav-text">3.7.创建商品微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-1-微服务的结构"><span class="nav-number">4.7.1.</span> <span class="nav-text">3.7.1.微服务的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-2-leyou-item"><span class="nav-number">4.7.2.</span> <span class="nav-text">3.7.2.leyou-item</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-3-leyou-item-interface"><span class="nav-number">4.7.3.</span> <span class="nav-text">3.7.3.leyou-item-interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-4-leyou-item-service"><span class="nav-number">4.7.4.</span> <span class="nav-text">3.7.4.leyou-item-service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-5-整个微服务结构"><span class="nav-number">4.7.5.</span> <span class="nav-text">3.7.5.整个微服务结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-6-添加依赖"><span class="nav-number">4.7.6.</span> <span class="nav-text">3.7.6.添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-7-编写启动和配置"><span class="nav-number">4.7.7.</span> <span class="nav-text">3.7.7.编写启动和配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-添加商品微服务的路由规则"><span class="nav-number">4.8.</span> <span class="nav-text">3.8.添加商品微服务的路由规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-启动测试"><span class="nav-number">4.9.</span> <span class="nav-text">3.9.启动测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10-测试路由规则"><span class="nav-number">4.10.</span> <span class="nav-text">3.10.测试路由规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-11-通用工具模块"><span class="nav-number">4.11.</span> <span class="nav-text">3.11.通用工具模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-ES6语法指南"><span class="nav-number">5.</span> <span class="nav-text">4.ES6语法指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-什么是ECMAScript？"><span class="nav-number">5.1.</span> <span class="nav-text">4.1.什么是ECMAScript？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-ECMAScript的快速发展"><span class="nav-number">5.2.</span> <span class="nav-text">4.2.ECMAScript的快速发展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-ES5和6的一些新特性"><span class="nav-number">5.3.</span> <span class="nav-text">4.3.ES5和6的一些新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-let-和-const-命令"><span class="nav-number">5.3.1.</span> <span class="nav-text">4.3.1.let 和 const 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-字符串扩展"><span class="nav-number">5.3.2.</span> <span class="nav-text">4.3.2.字符串扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3-解构表达式"><span class="nav-number">5.3.3.</span> <span class="nav-text">4.3.3.解构表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-4-函数优化"><span class="nav-number">5.3.4.</span> <span class="nav-text">4.3.4.函数优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-5-map和reduce"><span class="nav-number">5.3.5.</span> <span class="nav-text">4.3.5.map和reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-6-对象扩展"><span class="nav-number">5.3.6.</span> <span class="nav-text">4.3.6.对象扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-7-数组扩展"><span class="nav-number">5.3.7.</span> <span class="nav-text">4.3.7.数组扩展</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

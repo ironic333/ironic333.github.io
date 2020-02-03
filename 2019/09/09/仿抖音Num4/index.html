@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="微信小程序端界面相关业务开发本章主要讲解小程序端的相关业务开发,例如首页视频的展示,视频点赞，转发，留言，下载，查询等等，让我们开始吧！！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿抖音微信小程序日记Num.4">
+<meta property="og:url" content="https://ironic333.github.io/2019/09/09/仿抖音Num4/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="微信小程序端界面相关业务开发本章主要讲解小程序端的相关业务开发,例如首页视频的展示,视频点赞，转发，留言，下载，查询等等，让我们开始吧！！">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/pageresult.jpg">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/querryallvideos.jpg">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/indexjson.jpg">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/indexwxml.jpg">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/1568038480(1).jpg">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/1568104084(1).jpg">
+<meta property="og:image" content="https://ironic333.github.io/images/Ahem/1568105761(1).jpg">
+<meta property="og:updated_time" content="2019-09-10T11:56:54.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="仿抖音微信小程序日记Num.4">
+<meta name="twitter:description" content="微信小程序端界面相关业务开发本章主要讲解小程序端的相关业务开发,例如首页视频的展示,视频点赞，转发，留言，下载，查询等等，让我们开始吧！！">
+<meta name="twitter:image" content="https://ironic333.github.io/images/Ahem/pageresult.jpg">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2019/09/09/仿抖音Num4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>仿抖音微信小程序日记Num.4 | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2019/09/09/仿抖音Num4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">仿抖音微信小程序日记Num.4
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-09 21:04:25" itemprop="dateCreated datePublished" datetime="2019-09-09T21:04:25+08:00">2019-09-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-10 19:56:54" itemprop="dateModified" datetime="2019-09-10T19:56:54+08:00">2019-09-10</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="微信小程序端界面相关业务开发"><a href="#微信小程序端界面相关业务开发" class="headerlink" title="微信小程序端界面相关业务开发"></a>微信小程序端界面相关业务开发</h2><p>本章主要讲解小程序端的相关业务开发,例如首页视频的展示,视频点赞，转发，留言，下载，查询等等，让我们开始吧！！</p>
+<a id="more"></a>
+<h2 id="视频列表分页查询接口（PageHelper使用）"><a href="#视频列表分页查询接口（PageHelper使用）" class="headerlink" title="视频列表分页查询接口（PageHelper使用）"></a>视频列表分页查询接口（PageHelper使用）</h2><p>首先建立一个PageResult类，新建需要用到的一些对象：<br><img src="/images/Ahem/pageresult.jpg" alt="示例图"><br>创建一个方法<br>public PagedResult getAllVideos(Integer page,Integer pageSize);<br>其实现如下：</p>
+<pre><code>PageHelper.startPage(page, pageSize);
+
+        List&lt;VideosVO&gt; list = videosMapperCustom.queryAllVideos(desc, userId);
+        PageInfo&lt;VideosVO&gt; pageList = new PageInfo&lt;&gt;(list);
+
+        PagedResult pagedResult = new PagedResult();
+        pagedResult.setPage(page);
+        pagedResult.setTotal(pageList.getPages());
+        pagedResult.setRows(list);
+        pagedResult.setRecords(pageList.getTotal());
+
+        return pagedResult;</code></pre><p>其中的videosMapperCustom.queryAllVideos(desc, userId);是在mapper中写的自定义的查询方法，具体如下：<br>1.创建一个VideoMapper的副本取名VideosMapperCustom，类似VO的作用，在其中添加方法<br>public List<videosvo> queryAllVideos(@Param(“videoDesc”) String videoDesc);</videosvo></p>
+<p>2.在VideoMapper.xml文件中去实现：<br><img src="/images/Ahem/querryallvideos.jpg" alt="示例图"></p>
+<p>Controller层直接调用即可：</p>
+<p>//isSaveRecord: 1 - 需要保存  0 - 不需要保存，或者为空的时候    </p>
+<pre><code>@PostMapping(value=&quot;/showAll&quot;)
+public WangJSONResult showAll(@RequestBody Videos video , Integer isSaveRecord , Integer page) throws Exception {
+
+    if(page == null) {
+
+        page = 1;
+
+    }
+
+    PagedResult result = videoService.getAllVideos(video,isSaveRecord,page, PAGE_SIZE);
+    return WangJSONResult.ok(result);
+
+
+}</code></pre><h2 id="小程序端调用视频查询接口进行展示（上拉分页和下拉刷新）"><a href="#小程序端调用视频查询接口进行展示（上拉分页和下拉刷新）" class="headerlink" title="小程序端调用视频查询接口进行展示（上拉分页和下拉刷新）"></a>小程序端调用视频查询接口进行展示（上拉分页和下拉刷新）</h2><p>const app = getApp()<br>Page({<br>  data: {<br>    // 用于分页的属性<br>    totalPage: 1,<br>    page:1,<br>    videoList:[],<br>    screenWidth: 350,<br>    serverUrl: “”,<br>    searchContent: “”<br>    },</p>
+<p>  onLoad: function (params) {<br>    var me = this;<br>    var screenWidth = wx.getSystemInfoSync().screenWidth;  //getSystemInfoSync()是获取系统信息同步接口，获得你手机的宽度<br>    me.setData({<br>      screenWidth: screenWidth,<br>    });</p>
+<pre><code>var searchContent = params.search;
+var isSaveRecord = params.isSaveRecord;
+if (isSaveRecord == null || isSaveRecord == &apos;&apos; || isSaveRecord == undefined) {
+  isSaveRecord = 0;
+}
+
+me.setData({
+  searchContent: searchContent
+});
+
+// 获取当前的分页数
+var page = me.data.page;
+me.getAllVideoList(page, isSaveRecord);</code></pre><p>  },</p>
+<p>  getAllVideoList: function (page, isSaveRecord) {<br>    var me = this;<br>    var serverUrl = app.serverUrl;<br>    wx.showLoading({<br>      title: ‘请等待，加载中…’,<br>    });</p>
+<pre><code>var searchContent = me.data.searchContent;
+
+wx.request({
+  url: serverUrl + &apos;/video/showAll?page=&apos; + page + &quot;&amp;isSaveRecord=&quot; + isSaveRecord,
+  method: &quot;POST&quot;,
+  data: {
+    videoDesc: searchContent
+  },
+  success: function (res) {
+    wx.hideLoading();
+    wx.hideNavigationBarLoading();  //关闭加载的小菊花
+    wx.stopPullDownRefresh();       //停止三个加载的小点点
+
+    console.log(res.data);
+
+    // 判断当前页page是否是第一页，如果是第一页，那么设置videoList为空
+    if (page === 1) {
+      me.setData({
+        videoList: []
+      });
+    }
+
+    var videoList = res.data.data.rows;
+    var newVideoList = me.data.videoList;
+
+    me.setData({
+      videoList: newVideoList.concat(videoList),
+      page: page,
+      totalPage: res.data.data.total,
+      serverUrl: serverUrl
+    });
+
+  }
+})</code></pre><p>  },</p>
+<p>})</p>
+<p><img src="/images/Ahem/indexjson.jpg" alt="示例图"></p>
+<h3 id="上拉分页"><a href="#上拉分页" class="headerlink" title="上拉分页"></a>上拉分页</h3><p>  onReachBottom:function() {<br>    var me = this;<br>    var currentPage = me.data.page;<br>    var totalPage = me.data.totalPage;</p>
+<pre><code>// 判断当前页数和总页数是否相等，如果想的则无需查询
+if (currentPage === totalPage) {
+  wx.showToast({
+    title: &apos;已经没有视频啦~~&apos;,
+    icon: &quot;none&quot;
+  })
+  return;
+}
+
+var page = currentPage + 1;
+
+me.getAllVideoList(page, 0);</code></pre><p>  },</p>
+<h3 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h3><p>  onPullDownRefresh: function() {<br>    wx.showNavigationBarLoading();<br>    this.getAllVideoList(1, 0);<br>  },<br>  showVideoInfo: function(e) {<br>    var me = this;<br>    var videoList = me.data.videoList;<br>    var arrindex = e.target.dataset.arrindex;<br>    var videoInfo = JSON.stringify(videoList[arrindex]);</p>
+<pre><code>wx.redirectTo({
+  url: &apos;../videoinfo/videoinfo?videoInfo=&apos; + videoInfo
+})</code></pre><p>  }</p>
+<p><img src="/images/Ahem/indexwxml.jpg" alt="示例图"></p>
+<h2 id="视频展示页开发"><a href="#视频展示页开发" class="headerlink" title="视频展示页开发"></a>视频展示页开发</h2><p><img src="/images/Ahem/1568038480(1).jpg" alt="示例图"></p>
+<p>前端代码设计如下：<br><view style="width:100%;height:100%;"></view></p>
+<p>&lt;video  id=”myVideo” src=”“<br>muted=”false“<br>controls=”false“<br>autoplay=”true“<br>loop=”true“<br>enable-progress-gesture=”false“<br>style=’width:100%;height:100%;’<br>objectFit=’‘</p>
+<blockquote>
+</blockquote>
+<cover-view class="container">
+            <!-- 上传视频 -->
+
+<pre><code>    &lt;cover-image src=&apos;../resource/images/camera.png&apos; style=&apos;width:50rpx;height:50rpx;&apos; bindtap=&apos;upload&apos;&gt;&lt;/cover-image&gt;
+
+
+    &lt;!-- 搜索按钮 --&gt;
+    &lt;cover-image src=&apos;../resource/images/search.png&apos; style=&apos;width:45rpx;height:45rpx;&apos; bindtap=&apos;showSearch&apos;&gt;&lt;/cover-image&gt;
+
+&lt;/cover-view&gt;</code></pre><cover-view class="container-me">
+            <!-- 头像 -->
+            <cover-image class="face" src bindtap="showPublisher"></cover-image>
+
+
+<pre><code>      &lt;!-- 喜欢收藏按钮 --&gt;
+      &lt;block wx:if=&quot;{{userLikeVideo}}&quot;&gt;
+          &lt;cover-image class=&quot;size-me&quot; src=&apos;../resource/images/like.png&apos; style=&apos;margin-top:30rpx;&apos; bindtap=&apos;likeVideoOrNot&apos;&gt;&lt;/cover-image&gt;
+      &lt;/block&gt;
+      &lt;block wx:else&gt;
+          &lt;cover-image class=&quot;size-me&quot; src=&apos;../resource/images/unlike.png&apos; style=&apos;margin-top:30rpx;&apos; bindtap=&apos;likeVideoOrNot&apos;&gt;&lt;/cover-image&gt;
+      &lt;/block&gt;
+
+
+      &lt;!-- 评论按钮 --&gt;
+      &lt;cover-image class=&quot;size-me&quot; src=&apos;../resource/images/comments.png&apos; style=&apos;margin-top:30rpx;&apos; bindtap=&apos;leaveComment&apos;&gt;&lt;/cover-image&gt;
+
+      &lt;!-- 分享按钮 --&gt;
+      &lt;cover-image class=&quot;size-me&quot; src=&apos;../resource/images/share.png&apos; style=&apos;margin-top:30rpx;&apos; bindtap=&apos;shareMe&apos;&gt;&lt;/cover-image&gt;
+
+  &lt;/cover-view&gt;
+
+&lt;cover-view class=&apos;container-words&apos;&gt;
+
+      &lt;cover-view&gt;@{{publisher.nickname}}&lt;/cover-view&gt;
+
+      &lt;cover-view class=&apos;video-desc&apos;&gt;{{videoInfo.videoDesc}}&lt;/cover-view&gt;
+
+
+
+  &lt;/cover-view&gt;
+
+  &lt;cover-view class=&apos;container-bottom&apos;&gt;
+      &lt;!-- 首页按钮 --&gt;
+      &lt;cover-image class=&apos;&apos; src=&apos;../resource/images/index.png&apos; class=&quot;size-bottom&quot; bindtap=&apos;showIndex&apos;&gt;&lt;/cover-image&gt;
+
+
+
+      &lt;!-- 我的按钮 --&gt;
+      &lt;cover-image class=&apos;&apos; src=&apos;../resource/images/mine.png&apos; class=&quot;size-bottom&quot; bindtap=&apos;showMine&apos;&gt;&lt;/cover-image&gt;
+
+  &lt;/cover-view&gt;</code></pre>
+
+
+
+
+<view>
+
+<view class="saySthView">
+<input name="commentContent" class="saySth" placeholder confirm-type="send" bindconfirm="saveComment" focus value data-replyfathercommentid data-replytouserid>
+</view>
+
+<block wx:for>
+  <view class="comments-all" bindtap="replyFocus" data-fathercommentid data-touserid data-tonickname>
+      <view class="container-comments">
+          <image class="face-comments" src></image>
+          <view class="nickname-comments">
+              <label class="nickname-lbl">@</label>
+              于 
+              <label class="date-lbl"></label>
+              <!-- 留言： -->
+              <block wx:if="false">
+                回复
+                <label class="nickname-lbl">@</label>
+              </block>
+              <block wx:else>
+                留言：
+              </block>
+          </view>
+      </view>
+      <view class="comments-content"></view>
+  </view>
+</block> 
+
+</view>
+
+<h2 id="修改全局用户对象使用缓存"><a href="#修改全局用户对象使用缓存" class="headerlink" title="修改全局用户对象使用缓存"></a>修改全局用户对象使用缓存</h2><p>首先在app.js中添加缓存的set，get方法：<br><img src="/images/Ahem/1568104084(1).jpg" alt="示例图"><br>在登录和注册页面把app.userinfo改为调用新的set缓存的方法，在需要获取缓存的地方改为get的方法，注销的地方调用 wx.removeStorageSync(“userInfo”) </p>
+<h2 id="搜索插件使用"><a href="#搜索插件使用" class="headerlink" title="搜索插件使用"></a>搜索插件使用</h2><p>插件的链接：<a href="https://github.com/mindawei/wsSearchView" target="_blank" rel="noopener">https://github.com/mindawei/wsSearchView</a><br>跟着提示使用即可<br><img src="/images/Ahem/1568105761(1).jpg" alt="示例图"></p>
+<h2 id="热搜词"><a href="#热搜词" class="headerlink" title="热搜词"></a>热搜词</h2><p>重点是热搜词查询的SQL语句： select content from search_records group by content order by count(content) desc</p>
+
+    <div id="aplayer-XEuBxbiv" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="18161816" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+</cover-view></cover-view>
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2019/09/09/仿抖音Num4/" title="仿抖音微信小程序日记Num.4">https://ironic333.github.io/2019/09/09/仿抖音Num4/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/03/仿抖音Num3/" rel="next" title="仿抖音微信小程序日记Num.3">
+                  <i class="fa fa-chevron-left"></i> 仿抖音微信小程序日记Num.3
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/10/仿抖音Num5/" rel="prev" title="仿抖音微信小程序日记Num.5">
+                  仿抖音微信小程序日记Num.5 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微信小程序端界面相关业务开发"><span class="nav-number">1.</span> <span class="nav-text">微信小程序端界面相关业务开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频列表分页查询接口（PageHelper使用）"><span class="nav-number">2.</span> <span class="nav-text">视频列表分页查询接口（PageHelper使用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序端调用视频查询接口进行展示（上拉分页和下拉刷新）"><span class="nav-number">3.</span> <span class="nav-text">小程序端调用视频查询接口进行展示（上拉分页和下拉刷新）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上拉分页"><span class="nav-number">3.1.</span> <span class="nav-text">上拉分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下拉刷新"><span class="nav-number">3.2.</span> <span class="nav-text">下拉刷新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频展示页开发"><span class="nav-number">4.</span> <span class="nav-text">视频展示页开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改全局用户对象使用缓存"><span class="nav-number">5.</span> <span class="nav-text">修改全局用户对象使用缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索插件使用"><span class="nav-number">6.</span> <span class="nav-text">搜索插件使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热搜词"><span class="nav-number">7.</span> <span class="nav-text">热搜词</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

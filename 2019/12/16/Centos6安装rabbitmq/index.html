@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="1. 下载下载地址：http://www.rabbitmq.com/download.html">
+<meta name="keywords" content="-微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rabbitmq安装">
+<meta property="og:url" content="https://ironic333.github.io/2019/12/16/Centos6安装rabbitmq/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="1. 下载下载地址：http://www.rabbitmq.com/download.html">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image001.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image002.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image003.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image004.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image005.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image006.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image007.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image008.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image009.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image010.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image011.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image012.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image013.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image014.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image015.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image016.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image017.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image018.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/1533941425250.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image002-1533941272258.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image003-1533941272258.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image001-1533941511197.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/1533941467342.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image006-1533941272259.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image007-1533941272259.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image008-1533941272259.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image009-1533941272259.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image010-1533941272259.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/1527068070427.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/1527068172958.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/1527068230315.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/1527068380737.png">
+<meta property="og:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image015-1533941272259.png">
+<meta property="og:updated_time" content="2019-12-16T12:08:05.828Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rabbitmq安装">
+<meta name="twitter:description" content="1. 下载下载地址：http://www.rabbitmq.com/download.html">
+<meta name="twitter:image" content="https://ironic333.github.io/images/rabbitMQ/clip_image001.png">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2019/12/16/Centos6安装rabbitmq/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>rabbitmq安装 | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2019/12/16/Centos6安装rabbitmq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">rabbitmq安装
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-16 19:58:34 / 修改时间：20:08:05" itemprop="dateCreated datePublished" datetime="2019-12-16T19:58:34+08:00">2019-12-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h1><p>下载地址：<a href="http://www.rabbitmq.com/download.html" target="_blank" rel="noopener">http://www.rabbitmq.com/download.html</a></p>
+<a id="more"></a>
+<h1 id="2-windows下安装"><a href="#2-windows下安装" class="headerlink" title="2. windows下安装"></a>2. windows下安装</h1><h2 id="2-1-安装Erlang"><a href="#2-1-安装Erlang" class="headerlink" title="2.1.安装Erlang"></a>2.1.安装Erlang</h2><p>下载：<a href="http://www.erlang.org/download/otp_win64_17.3.exe" target="_blank" rel="noopener">http://www.erlang.org/download/otp_win64_17.3.exe</a></p>
+<p>安装：</p>
+<p> <img src="/images/rabbitMQ/clip_image001.png" alt="img"></p>
+<p> <img src="/images/rabbitMQ/clip_image002.png" alt="img"></p>
+<p> <img src="/images/rabbitMQ/clip_image003.png" alt="img"></p>
+<p> <img src="/images/rabbitMQ/clip_image004.png" alt="img"></p>
+<p> <img src="/images/rabbitMQ/clip_image005.png" alt="img"></p>
+<p>安装完成。</p>
+<p>如果出现：</p>
+<p> <img src="/images/rabbitMQ/clip_image006.png" alt="img"></p>
+<p>请选择忽略。</p>
+<h2 id="2-2-安装RabbitMQ"><a href="#2-2-安装RabbitMQ" class="headerlink" title="2.2.安装RabbitMQ"></a>2.2.安装RabbitMQ</h2><p> <img src="/images/rabbitMQ/clip_image007.png" alt="img"></p>
+<p> <img src="/images/rabbitMQ/clip_image008.png" alt="img"></p>
+<p> <img src="/images/rabbitMQ/clip_image009.png" alt="img"></p>
+<p>安装完成。</p>
+<p>启动、停止、重新安装等。</p>
+<p>按下win + R 然后运行命令：services.msc</p>
+<p> <img src="/images/rabbitMQ/clip_image010.png" alt="img"></p>
+<p>查看RabbitMQ服务有没有启动：</p>
+<p> <img src="/images/rabbitMQ/clip_image011.png" alt="img"></p>
+<h2 id="2-3-安装的注意事项"><a href="#2-3-安装的注意事项" class="headerlink" title="2.3.安装的注意事项"></a>2.3.安装的注意事项</h2><p><strong>1）推荐使用默认的安装路径</strong></p>
+<p><strong>2）系统用户名必须是英文</strong></p>
+<p>可以查看下用户目录：</p>
+<p> <img src="/images/rabbitMQ/clip_image012.png" alt="img"></p>
+<p>也可以在桌面打开cmd查看路径：</p>
+<p> <img src="/images/rabbitMQ/clip_image013.png" alt="img"></p>
+<p><strong>3</strong>）计算机名必须是英文</p>
+<p><img src="/images/rabbitMQ/clip_image014.png" alt="img"></p>
+<p><strong>4）系统的用户必须是管理员</strong></p>
+<h2 id="2-4-启用管理工具"><a href="#2-4-启用管理工具" class="headerlink" title="2.4.启用管理工具"></a>2.4.启用管理工具</h2><p> <img src="/images/rabbitMQ/clip_image015.png" alt="img"></p>
+<p>1、 点击<img src="/images/rabbitMQ/clip_image016.png" alt="img"></p>
+<p>2、 输入命令：</p>
+<p>rabbitmq-plugins enable rabbitmq_management<br> <img src="/images/rabbitMQ/clip_image017.png" alt="img"></p>
+<p>3、 在浏览器中输入地址查看：<a href="http://127.0.0.1:15672/" target="_blank" rel="noopener">http://127.0.0.1:15672/</a></p>
+<p> <img src="/images/rabbitMQ/clip_image018.png" alt="img"></p>
+<p>4、 使用默认账号登录：guest/ guest</p>
+<h2 id="2-5-安装失败解决方案"><a href="#2-5-安装失败解决方案" class="headerlink" title="2.5.安装失败解决方案"></a>2.5.安装失败解决方案</h2><p>如果安装失败的同学应该如何解决：</p>
+<p>l  <strong>重装系统</strong>  </p>
+<p>–  不推荐</p>
+<p>l  <strong>将RabbitMQ安装到linux虚拟机中</strong></p>
+<p>–  推荐</p>
+<p>l  <strong>使用别人安装好的RabbitMQ服务</strong></p>
+<p>a)     只要给你开通一个账户即可。</p>
+<p>b)     使用公用的RabbitMQ服务，在192.168.50.22</p>
+<p>–  推荐</p>
+<h1 id="3-Linux下安装"><a href="#3-Linux下安装" class="headerlink" title="3. Linux下安装"></a>3. Linux下安装</h1><p>cd /usr/local/leyou</p>
+<p>mkdir rabbitmq</p>
+<p>cd rabbitmq</p>
+<h2 id="3-1-安装Erlang"><a href="#3-1-安装Erlang" class="headerlink" title="3.1.安装Erlang"></a>3.1.安装Erlang</h2><h3 id="3-1-1-在线安装"><a href="#3-1-1-在线安装" class="headerlink" title="3.1.1.在线安装"></a>3.1.1.在线安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install esl-erlang_17.3-1~centos~6_amd64.rpm</span><br><span class="line"></span><br><span class="line">yum install esl-erlang-compat-R14B-1.el6.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-1-2-离线安装"><a href="#3-1-2-离线安装" class="headerlink" title="3.1.2.离线安装"></a>3.1.2.离线安装</h3><p>上传课前资料中的安装包</p>
+<p>Erlang：</p>
+<p><img src="/images/rabbitMQ/1533941425250.png" alt="1533941425250"></p>
+<p>依次执行命令：</p>
+<p>1）rpm -ivh esl-erlang-17.3-1.x86_64.rpm –force –nodeps</p>
+<p><img src="/images/rabbitMQ/clip_image002-1533941272258.png" alt="img"></p>
+<p>2）rpm -ivh esl-erlang_17.3-1<del>centos</del>6_amd64.rpm –force –nodeps</p>
+<p><img src="/images/rabbitMQ/clip_image003-1533941272258.png" alt="img"></p>
+<p>3）rpm -ivh esl-erlang-compat-R14B-1.el6.noarch.rpm –force –nodeps</p>
+<p><img src="/images/rabbitMQ/clip_image001-1533941511197.png" alt="img"></p>
+<h2 id="3-2-安装RabbitMQ"><a href="#3-2-安装RabbitMQ" class="headerlink" title="3.2.安装RabbitMQ"></a>3.2.安装RabbitMQ</h2><p>RabbitMQ：</p>
+<p><img src="/images/rabbitMQ/1533941467342.png" alt="1533941467342"></p>
+<p>上传后：</p>
+<p><img src="/images/rabbitMQ/clip_image006-1533941272259.png" alt="img"></p>
+<p>安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh rabbitmq-server-3.4.1-1.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/rabbitMQ/clip_image007-1533941272259.png" alt="img"></p>
+<h3 id="3-2-1-设置配置文件"><a href="#3-2-1-设置配置文件" class="headerlink" title="3.2.1.设置配置文件"></a>3.2.1.设置配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;usr&#x2F;share&#x2F;doc&#x2F;rabbitmq-server-3.4.1&#x2F;rabbitmq.config.example &#x2F;etc&#x2F;rabbitmq&#x2F;rabbitmq.config</span><br></pre></td></tr></table></figure>
+
+<p>开启用户远程访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;rabbitmq&#x2F;rabbitmq.config</span><br></pre></td></tr></table></figure>
+
+<p> <img src="/images/rabbitMQ/clip_image008-1533941272259.png" alt="img"></p>
+<p><strong>注意要去掉后面的逗号。</strong></p>
+<h3 id="3-2-2-启动、停止"><a href="#3-2-2-启动、停止" class="headerlink" title="3.2.2.启动、停止"></a>3.2.2.启动、停止</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service rabbitmq-server start</span><br><span class="line"></span><br><span class="line">service rabbitmq-server stop</span><br><span class="line"></span><br><span class="line">service rabbitmq-server restart</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2-3-开启web界面管理工具"><a href="#3-2-3-开启web界面管理工具" class="headerlink" title="3.2.3.开启web界面管理工具"></a>3.2.3.开启web界面管理工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"></span><br><span class="line">service rabbitmq-server restart</span><br></pre></td></tr></table></figure>
+
+<p> <img src="/images/rabbitMQ/clip_image009-1533941272259.png" alt="img"></p>
+<h3 id="3-2-4-设置开机启动"><a href="#3-2-4-设置开机启动" class="headerlink" title="3.2.4.设置开机启动"></a>3.2.4.设置开机启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig rabbitmq-server on</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2-5-防火墙开放15672端口"><a href="#3-2-5-防火墙开放15672端口" class="headerlink" title="3.2.5.防火墙开放15672端口"></a>3.2.5.防火墙开放15672端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;sbin&#x2F;iptables -I INPUT -p tcp --dport 15672 -j ACCEPT</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;iptables save</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="4-管理界面"><a href="#4-管理界面" class="headerlink" title="4.管理界面"></a>4.管理界面</h1><h2 id="2-1-主页总览"><a href="#2-1-主页总览" class="headerlink" title="2.1.主页总览"></a>2.1.主页总览</h2><p><img src="/images/rabbitMQ/clip_image010-1533941272259.png" alt="img"></p>
+<p>connections：无论生产者还是消费者，都需要与RabbitMQ建立连接后才可以完成消息的生产和消费，在这里可以查看连接情况</p>
+<p>channels：通道，建立连接后，会形成通道，消息的投递获取依赖通道。</p>
+<p>Exchanges：交换机，用来实现消息的路由</p>
+<p>Queues：队列，即消息队列，消息存放在队列中，等待消费，消费后被移除队列。</p>
+<p>端口：</p>
+<p>5672: rabbitMq的编程语言客户端连接端口</p>
+<p>15672：rabbitMq管理界面端口</p>
+<p>25672：rabbitMq集群的端口</p>
+<h2 id="2-2-添加用户"><a href="#2-2-添加用户" class="headerlink" title="2.2.添加用户"></a>2.2.添加用户</h2><p>如果不使用guest，我们也可以自己创建一个用户：</p>
+<p><img src="/images/rabbitMQ/1527068070427.png" alt="img"></p>
+<p>1、 超级管理员(administrator)</p>
+<p>可登陆管理控制台，可查看所有的信息，并且可以对用户，策略(policy)进行操作。</p>
+<p>2、 监控者(monitoring)</p>
+<p>可登陆管理控制台，同时可以查看rabbitmq节点的相关信息(进程数，内存使用情况，磁盘使用情况等)</p>
+<p>3、 策略制定者(policymaker)</p>
+<p>可登陆管理控制台, 同时可以对policy进行管理。但无法查看节点的相关信息(上图红框标识的部分)。</p>
+<p>4、 普通管理者(management)</p>
+<p>仅可登陆管理控制台，无法看到节点信息，也无法对策略进行管理。</p>
+<p>5、 其他</p>
+<p>无法登陆管理控制台，通常就是普通的生产者和消费者。</p>
+<h2 id="2-3-创建Virtual-Hosts"><a href="#2-3-创建Virtual-Hosts" class="headerlink" title="2.3.创建Virtual Hosts"></a>2.3.创建Virtual Hosts</h2><p>虚拟主机：类似于mysql中的database。他们都是以“/”开头</p>
+<p><img src="/images/rabbitMQ/1527068172958.png" alt="img"></p>
+<h2 id="2-4-设置权限"><a href="#2-4-设置权限" class="headerlink" title="2.4.设置权限"></a>2.4.设置权限</h2><p> <img src="/images/rabbitMQ/1527068230315.png" alt="img"></p>
+<p> <img src="/images/rabbitMQ/1527068380737.png" alt="img"></p>
+<p><img src="/images/rabbitMQ/clip_image015-1533941272259.png" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2019/12/16/Centos6安装rabbitmq/" title="rabbitmq安装">https://ironic333.github.io/2019/12/16/Centos6安装rabbitmq/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/微服务/" rel="tag"># -微服务</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/12/16/day14.商品详情及静态化/" rel="next" title="商品详情及静态化">
+                  <i class="fa fa-chevron-left"></i> 商品详情及静态化
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/16/day15-rabbitmq及数据同步/" rel="prev" title="rabbitMQ与数据同步">
+                  rabbitMQ与数据同步 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-下载"><span class="nav-number">1.</span> <span class="nav-text">1. 下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-windows下安装"><span class="nav-number">2.</span> <span class="nav-text">2. windows下安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-安装Erlang"><span class="nav-number">2.1.</span> <span class="nav-text">2.1.安装Erlang</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-安装RabbitMQ"><span class="nav-number">2.2.</span> <span class="nav-text">2.2.安装RabbitMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-安装的注意事项"><span class="nav-number">2.3.</span> <span class="nav-text">2.3.安装的注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-启用管理工具"><span class="nav-number">2.4.</span> <span class="nav-text">2.4.启用管理工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-安装失败解决方案"><span class="nav-number">2.5.</span> <span class="nav-text">2.5.安装失败解决方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Linux下安装"><span class="nav-number">3.</span> <span class="nav-text">3. Linux下安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-安装Erlang"><span class="nav-number">3.1.</span> <span class="nav-text">3.1.安装Erlang</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-在线安装"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1.在线安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-离线安装"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2.离线安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-安装RabbitMQ"><span class="nav-number">3.2.</span> <span class="nav-text">3.2.安装RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-设置配置文件"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1.设置配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-启动、停止"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2.启动、停止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-开启web界面管理工具"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3.开启web界面管理工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-4-设置开机启动"><span class="nav-number">3.2.4.</span> <span class="nav-text">3.2.4.设置开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-5-防火墙开放15672端口"><span class="nav-number">3.2.5.</span> <span class="nav-text">3.2.5.防火墙开放15672端口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-管理界面"><span class="nav-number">4.</span> <span class="nav-text">4.管理界面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-主页总览"><span class="nav-number">4.1.</span> <span class="nav-text">2.1.主页总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-添加用户"><span class="nav-number">4.2.</span> <span class="nav-text">2.2.添加用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-创建Virtual-Hosts"><span class="nav-number">4.3.</span> <span class="nav-text">2.3.创建Virtual Hosts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-设置权限"><span class="nav-number">4.4.</span> <span class="nav-text">2.4.设置权限</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
