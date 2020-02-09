@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/doughnut_32px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/doughnut_16px_1230677_easyicon.net.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="无聊的每一天撸码，学习，游戏，吃饭，睡觉。。。。。">
+<meta name="keywords" content="-消息中间件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rabbitMQ的一次实战">
+<meta property="og:url" content="https://ironic333.github.io/2020/02/09/记录rabbitMQ的一次实战/index.html">
+<meta property="og:site_name" content="MaoLin&#39;s blog">
+<meta property="og:description" content="无聊的每一天撸码，学习，游戏，吃饭，睡觉。。。。。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ironic333.github.io/images/shizhan/1581258280.jpg">
+<meta property="og:updated_time" content="2020-02-09T15:25:43.023Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rabbitMQ的一次实战">
+<meta name="twitter:description" content="无聊的每一天撸码，学习，游戏，吃饭，睡觉。。。。。">
+<meta name="twitter:image" content="https://ironic333.github.io/images/shizhan/1581258280.jpg">
+  <link rel="alternate" href="/atom.xml" title="MaoLin's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ironic333.github.io/2020/02/09/记录rabbitMQ的一次实战/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>rabbitMQ的一次实战 | MaoLin's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MaoLin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ironic333.github.io/2020/02/09/记录rabbitMQ的一次实战/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrew">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MaoLin's blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">rabbitMQ的一次实战
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-09 22:18:02 / 修改时间：23:25:43" itemprop="dateCreated datePublished" datetime="2020-02-09T22:18:02+08:00">2020-02-09</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="无聊的每一天"><a href="#无聊的每一天" class="headerlink" title="无聊的每一天"></a>无聊的每一天</h2><p>撸码，学习，游戏，吃饭，睡觉。。。。。</p>
+<a id="more"></a>
+<h2 id="rabbitMQ死信队列"><a href="#rabbitMQ死信队列" class="headerlink" title="rabbitMQ死信队列"></a>rabbitMQ死信队列</h2><p>通过死信队列失效超时未支付的订单<br>如图所示<br><img src="/images/shizhan/1581258280.jpg" alt="示例图"></p>
+<h3 id="首先创建死信队列消息模型"><a href="#首先创建死信队列消息模型" class="headerlink" title="首先创建死信队列消息模型"></a>首先创建死信队列消息模型</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//订单超时未支付的死信队列消息模型</span></span><br><span class="line"></span><br><span class="line">   <span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Queue <span class="title">successKillDeadQueue</span><span class="params">()</span></span>&#123;</span><br><span class="line">       Map&lt;String, Object&gt; argsMap= Maps.newHashMap();</span><br><span class="line">       argsMap.put(<span class="string">"x-dead-letter-exchange"</span>,env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.exchange"</span>));</span><br><span class="line">       argsMap.put(<span class="string">"x-dead-letter-routing-key"</span>,env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.routing.key"</span>));</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> Queue(env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.queue"</span>),<span class="keyword">true</span>,<span class="keyword">false</span>,<span class="keyword">false</span>,argsMap);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//基本交换机</span></span><br><span class="line">   <span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> TopicExchange <span class="title">successKillDeadProdExchange</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> TopicExchange(env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.prod.exchange"</span>),<span class="keyword">true</span>,<span class="keyword">false</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//创建基本交换机+基本路由 -&gt; 死信队列 的绑定</span></span><br><span class="line">   <span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Binding <span class="title">successKillDeadProdBinding</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> BindingBuilder.bind(successKillDeadQueue()).to(successKillDeadProdExchange()).with(env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.prod.routing.key"</span>));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建真正的队列模型"><a href="#创建真正的队列模型" class="headerlink" title="创建真正的队列模型"></a>创建真正的队列模型</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//真正的队列</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Queue <span class="title">successKillRealQueue</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Queue(env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.real.queue"</span>),<span class="keyword">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//死信交换机</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> TopicExchange <span class="title">successKillDeadExchange</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> TopicExchange(env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.exchange"</span>),<span class="keyword">true</span>,<span class="keyword">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//死信交换机+死信路由-&gt;真正队列 的绑定</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Binding <span class="title">successKillDeadBinding</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> BindingBuilder.bind(successKillRealQueue()).to(successKillDeadExchange()).with(env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.routing.key"</span>));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何去使用？"><a href="#如何去使用？" class="headerlink" title="如何去使用？"></a>如何去使用？</h2><h3 id="发送者"><a href="#发送者" class="headerlink" title="发送者"></a>发送者</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 秒杀成功后生成抢购订单-发送信息入死信队列，等待着一定时间失效超时未支付的订单</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> orderCode</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendKillSuccessOrderExpireMsg</span><span class="params">(<span class="keyword">final</span> String orderCode)</span></span>&#123;</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         <span class="keyword">if</span> (StringUtils.isNotBlank(orderCode))&#123;</span><br><span class="line">             KillSuccessUserInfo info=itemKillSuccessMapper.selectByCode(orderCode);</span><br><span class="line">             <span class="keyword">if</span> (info!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                 rabbitTemplate.setMessageConverter(<span class="keyword">new</span> Jackson2JsonMessageConverter());</span><br><span class="line">                 rabbitTemplate.setExchange(env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.prod.exchange"</span>));</span><br><span class="line">                 rabbitTemplate.setRoutingKey(env.getProperty(<span class="string">"mq.kill.item.success.kill.dead.prod.routing.key"</span>));</span><br><span class="line">                 rabbitTemplate.convertAndSend(info, <span class="keyword">new</span> MessagePostProcessor() &#123;</span><br><span class="line">                     <span class="meta">@Override</span></span><br><span class="line">                     <span class="function"><span class="keyword">public</span> Message <span class="title">postProcessMessage</span><span class="params">(Message message)</span> <span class="keyword">throws</span> AmqpException </span>&#123;</span><br><span class="line">                         MessageProperties mp=message.getMessageProperties();</span><br><span class="line">                         mp.setDeliveryMode(MessageDeliveryMode.PERSISTENT);</span><br><span class="line">                         mp.setHeader(AbstractJavaTypeMapper.DEFAULT_CONTENT_CLASSID_FIELD_NAME,KillSuccessUserInfo<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">                         <span class="comment">//TODO：动态设置TTL(为了测试方便，暂且设置10s)</span></span><br><span class="line">                         mp.setExpiration(env.getProperty(<span class="string">"mq.kill.item.success.kill.expire"</span>));</span><br><span class="line">                         <span class="keyword">return</span> message;</span><br><span class="line">                     &#125;</span><br><span class="line">                 &#125;);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">         log.error(<span class="string">"秒杀成功后生成抢购订单-发送信息入死信队列，等待着一定时间失效超时未支付的订单-发生异常，消息为：&#123;&#125;"</span>,orderCode,e.fillInStackTrace());</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="监听者"><a href="#监听者" class="headerlink" title="监听者"></a>监听者</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用户秒杀成功后超时未支付-监听者</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> info</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RabbitListener</span>(queues = &#123;<span class="string">"$&#123;mq.kill.item.success.kill.dead.real.queue&#125;"</span>&#125;,containerFactory = <span class="string">"singleListenerContainer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consumeExpireOrder</span><span class="params">(KillSuccessUserInfo info)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        log.info(<span class="string">"用户秒杀成功后超时未支付-监听者-接收消息:&#123;&#125;"</span>,info);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (info!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            ItemKillSuccess entity=itemKillSuccessMapper.selectByPrimaryKey(info.getCode());</span><br><span class="line">            <span class="keyword">if</span> (entity!=<span class="keyword">null</span> &amp;&amp; entity.getStatus().intValue()==<span class="number">0</span>)&#123;</span><br><span class="line">                itemKillSuccessMapper.expireOrder(info.getCode());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        log.error(<span class="string">"用户秒杀成功后超时未支付-监听者-发生异常："</span>,e.fillInStackTrace());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中监听者expireOrder是实现的如下方法,将订单状态设为失效状态</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--失效更新订单信息--&gt;</span><br><span class="line">&lt;update id="expireOrder"&gt;</span><br><span class="line">  <span class="keyword">UPDATE</span> item_kill_success</span><br><span class="line">  <span class="keyword">SET</span> <span class="keyword">status</span> = <span class="number">-1</span></span><br><span class="line">  <span class="keyword">WHERE</span> code = <span class="comment">#&#123;code&#125; AND status = 0</span></span><br><span class="line">&lt;/<span class="keyword">update</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.创建死信队列<br>2.创建基本交换机<br>3.创建基本路由绑定1和2</p>
+<p>4.创建真正的队列<br>5.创建死信交换机<br>6.创建死信路由绑定4和5</p>
+<p>7.发送方是设置基本交换机和基本路由<br>8.监听方是监听真正队列</p>
+
+    <div id="aplayer-WNNqvkBh" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1421191783" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Andrew</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://ironic333.github.io/2020/02/09/记录rabbitMQ的一次实战/" title="rabbitMQ的一次实战">https://ironic333.github.io/2020/02/09/记录rabbitMQ的一次实战/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/消息中间件/" rel="tag"># -消息中间件</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/02/03/blog转移大法/" rel="next" title="blog转移大法">
+                  <i class="fa fa-chevron-left"></i> blog转移大法
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/wang.gif"
+      alt="Andrew">
+  <p class="site-author-name" itemprop="name">Andrew</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#无聊的每一天"><span class="nav-number">1.</span> <span class="nav-text">无聊的每一天</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rabbitMQ死信队列"><span class="nav-number">2.</span> <span class="nav-text">rabbitMQ死信队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先创建死信队列消息模型"><span class="nav-number">2.1.</span> <span class="nav-text">首先创建死信队列消息模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建真正的队列模型"><span class="nav-number">2.2.</span> <span class="nav-text">创建真正的队列模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何去使用？"><span class="nav-number">3.</span> <span class="nav-text">如何去使用？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发送者"><span class="nav-number">3.1.</span> <span class="nav-text">发送者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听者"><span class="nav-number">3.2.</span> <span class="nav-text">监听者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Andrew</span>
+</div>
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
