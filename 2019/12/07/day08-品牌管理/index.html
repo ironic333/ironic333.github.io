@@ -823,7 +823,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将数据提交到后台</span></span><br><span class="line"><span class="comment">// this.$http.post('/item/brand', this.$qs.stringify(params))</span></span><br><span class="line"><span class="keyword">this</span>.$http(&#123;</span><br><span class="line">    method: <span class="keyword">this</span>.isEdit ? <span class="string">'put'</span> : <span class="string">'post'</span>, <span class="comment">// 动态判断是POST还是PUT</span></span><br><span class="line">    url: <span class="string">'/item/brand'</span>,</span><br><span class="line">    data: <span class="keyword">this</span>.$qs.stringify(<span class="keyword">this</span>.brand)</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 关闭窗口</span></span><br><span class="line">    <span class="keyword">this</span>.$emit(<span class="string">"close"</span>);</span><br><span class="line">    <span class="keyword">this</span>.$message.success(<span class="string">"保存成功！"</span>);</span><br><span class="line">&#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.$message.error(<span class="string">"保存失败！"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-sbgyBqUj" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2944308820" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-jaqncpdG" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="2944308820" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
     </div>
 
@@ -934,7 +934,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -961,7 +961,9 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
