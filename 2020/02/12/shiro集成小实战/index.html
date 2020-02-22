@@ -64,7 +64,7 @@
 <meta property="og:description" content="后天情人节哦是springboot-1.5.7版本集成Shiro，讲了一些基本的流程步骤，来看看吧">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ironic333.github.io/images/shizhan/1581476134(1).jpg">
-<meta property="og:updated_time" content="2020-02-12T05:45:31.726Z">
+<meta property="og:updated_time" content="2020-02-12T05:46:16.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shiro集成小实战">
 <meta name="twitter:description" content="后天情人节哦是springboot-1.5.7版本集成Shiro，讲了一些基本的流程步骤，来看看吧">
@@ -271,7 +271,7 @@
                 
               
 
-              <time title="创建时间：2020-02-12 10:46:23 / 修改时间：13:45:31" itemprop="dateCreated datePublished" datetime="2020-02-12T10:46:23+08:00">2020-02-12</time>
+              <time title="创建时间：2020-02-12 10:46:23 / 修改时间：13:46:16" itemprop="dateCreated datePublished" datetime="2020-02-12T10:46:23+08:00">2020-02-12</time>
             </span>
           
             
@@ -312,7 +312,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * shiro的通用化配置</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShiroConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CustomRealm <span class="title">customRealm</span><span class="params">()</span></span>&#123;</span><br><span class="line">        CustomRealm realm=<span class="keyword">new</span> CustomRealm();</span><br><span class="line">        <span class="keyword">return</span> realm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SecurityManager <span class="title">securityManager</span><span class="params">()</span></span>&#123;</span><br><span class="line">        DefaultWebSecurityManager securityManager=<span class="keyword">new</span> DefaultWebSecurityManager();</span><br><span class="line">        securityManager.setRealm(customRealm());</span><br><span class="line">        securityManager.setRememberMeManager(<span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">return</span> securityManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ShiroFilterFactoryBean <span class="title">shiroFilterFactoryBean</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ShiroFilterFactoryBean bean=<span class="keyword">new</span> ShiroFilterFactoryBean();</span><br><span class="line">        bean.setSecurityManager(securityManager());</span><br><span class="line">        bean.setLoginUrl(<span class="string">"/to/login"</span>);</span><br><span class="line">        bean.setUnauthorizedUrl(<span class="string">"/unauth"</span>);</span><br><span class="line"></span><br><span class="line">        Map&lt;String, String&gt; filterChainDefinitionMap=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/to/login"</span>,<span class="string">"anon"</span>);</span><br><span class="line"></span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/kill/execute"</span>,<span class="string">"authc"</span>);</span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/item/detail/*"</span>,<span class="string">"authc"</span>);</span><br><span class="line"></span><br><span class="line">        filterChainDefinitionMap.put(<span class="string">"/**"</span>,<span class="string">"anon"</span>);</span><br><span class="line">        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-qORIrLQQ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="85343659" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div> 
+    <div id="aplayer-TDaZNEdt" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="85343659" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div> 
     </div>
 
     
@@ -362,6 +362,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/02/22/两个线程交替打印数字/" rel="prev" title="两个线程交替打印奇数和偶数">
+                  两个线程交替打印奇数和偶数 <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -418,7 +422,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
