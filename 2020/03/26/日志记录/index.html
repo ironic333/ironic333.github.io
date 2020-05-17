@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="MaoLin&#39;s blog">
 <meta property="og:description" content="简介本文主要记录三种实现日志记录的方式，分别是spring的事件驱动机制applicationEvent实现、spring的aop实现、rabbitmq消息队列实现，如有纰漏，尽情谅解">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-26T09:44:46.180Z">
+<meta property="og:updated_time" content="2020-04-19T11:28:52.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日志记录">
 <meta name="twitter:description" content="简介本文主要记录三种实现日志记录的方式，分别是spring的事件驱动机制applicationEvent实现、spring的aop实现、rabbitmq消息队列实现，如有纰漏，尽情谅解">
@@ -268,11 +268,19 @@
                 
               
 
-              <time title="创建时间：2020-03-26 13:16:29 / 修改时间：17:44:46" itemprop="dateCreated datePublished" datetime="2020-03-26T13:16:29+08:00">2020-03-26</time>
+              <time title="创建时间：2020-03-26 13:16:29" itemprop="dateCreated datePublished" datetime="2020-03-26T13:16:29+08:00">2020-03-26</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-19 19:28:52" itemprop="dateModified" datetime="2020-04-19T19:28:52+08:00">2020-04-19</time>
+              </span>
             
           
 
@@ -315,7 +323,7 @@
 <h3 id="监听方"><a href="#监听方" class="headerlink" title="监听方"></a>监听方</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 队列的监听消费者</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogMqListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger log= LoggerFactory.getLogger(LogMqListener<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ObjectMapper objectMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LogService logService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//指定要监听的队列（可以是多个）以及监听消费处理消息的模式（单一消费者实例-单一线程）</span></span><br><span class="line">    <span class="meta">@RabbitListener</span>(queues = &#123;<span class="string">"$&#123;mq.log.queue&#125;"</span>&#125;,containerFactory = <span class="string">"singleListenerContainer"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consumeLogMsg</span><span class="params">(@Payload <span class="keyword">byte</span>[] msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            log.info(<span class="string">"--日志记录的监听-消费者-监听到消息--"</span>);</span><br><span class="line"></span><br><span class="line">            SysLog entity=objectMapper.readValue(msg, SysLog<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            logService.recordLog(entity);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            log.error(<span class="string">"日志记录的监听-消费者-发生异常："</span>,e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    <div id="aplayer-MqbxbdsK" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1429363572" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-rLVtzuhz" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="1429363572" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
     </div>
 
     
@@ -416,7 +424,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
